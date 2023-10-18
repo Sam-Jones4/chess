@@ -1,4 +1,11 @@
 package services;
 
-public class ListGamesService {
+import responses.ListGamesResponse;
+
+public class ListGamesService
+{
+    public ListGamesResponse listGames()
+    {
+        return null;
+    }
 }

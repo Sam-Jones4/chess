@@ -1,4 +1,12 @@
 package services;
 
-public class ClearApplicationService {
+import responses.ClearApplicationResponse;
+
+public class ClearApplicationService
+{
+    public ClearApplicationResponse clearApplication()
+    {
+        return null;
+    }
+
 }

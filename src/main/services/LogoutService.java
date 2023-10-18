@@ -1,4 +1,11 @@
 package services;
 
-public class LogoutService {
+import responses.LogoutResponse;
+
+public class LogoutService
+{
+    public LogoutResponse logout()
+    {
+        return null;
+    }
 }
