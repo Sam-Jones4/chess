@@ -10,9 +10,22 @@ public class RegisterResponse
      * Creates a variable to store a username.
      */
     private String username;
+    /**
+     * Creates a variable to store an authToken
+     */
     private String authToken;
+    /**
+     * Creates a variable to store any failure messages
+     */
     private String message;
 
+    /**
+     * Class constructor
+     *
+     * @param username sets username to given username
+     * @param authToken sets authToken to given authToken
+     * @param message sets message to given message
+     */
     public RegisterResponse(String username, String authToken, String message)
     {
         this.username = username;
