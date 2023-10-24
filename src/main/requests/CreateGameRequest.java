@@ -1,8 +1,22 @@
 package requests;
 
-import responses.CreateGameResponse;
-
+/**
+ * Request class for creating a new game
+ */
 public class CreateGameRequest
 {
+    /**
+     * Variable to hold the gameName
+     */
+    private String gameName;
 
+    /**
+     * Class constructor
+     *
+     * @param gameName gameName set to the game name
+     */
+    public CreateGameRequest(String gameName)
+    {
+        this.gameName = gameName;
+    }
 }
