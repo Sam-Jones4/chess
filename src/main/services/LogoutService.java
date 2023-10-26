@@ -4,7 +4,7 @@ import responses.LogoutResponse;
 
 public class LogoutService
 {
-    public LogoutResponse logout()
+    public LogoutResponse logout(String token)
     {
         return null;
     }
