@@ -5,7 +5,7 @@ import responses.CreateGameResponse;
 
 public class CreateGameService
 {
-    public CreateGameResponse createGame(CreateGameRequest request)
+    public CreateGameResponse createGame(CreateGameRequest request, String token)
     {
         return null;
     }
