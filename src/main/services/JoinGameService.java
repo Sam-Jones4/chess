@@ -5,7 +5,7 @@ import responses.JoinGameResponse;
 
 public class JoinGameService
 {
-    public JoinGameResponse joinGame(JoinGameRequest joinGameRequest)
+    public JoinGameResponse joinGame(JoinGameRequest joinGameRequest, String token)
     {
         return null;
     }
