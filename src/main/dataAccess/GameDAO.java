@@ -1,5 +1,6 @@
 package dataAccess;
 
+import chess.ChessGame;
 import models.Game;
 import models.User;
 import java.util.Map;
@@ -12,14 +13,14 @@ public class GameDAO
     /**
      * Creates a map to store games
      */
-    private Map<String, Game> gameMap;
+    private static Map<Integer, Game> gameMap;
 
     /**
      * Clears game data
      */
     private void clearGame()
     {
-
+        gameMap.clear();
     }
 
     /**
@@ -29,35 +30,38 @@ public class GameDAO
      */
     private void insertGame(Game game)
     {
-
+        gameMap.put(game.getGameName(), game);
     }
 
     /**
      * Finds a game
      *
-     * @param game game to find
+     * @param gameName game to find
      */
-    private void findGame(Game game)
+    private Game findGame(String gameName)
     {
-
+        return gameMap.get(gameName);
     }
 
     /**
      * Finds all the games
      */
-    private void findAllGames()
+    private Map<String,Game> findAllGames()
     {
-
+        return gameMap;
     }
 
     /**
      * Claims a spot in a game
      *
-     * @param user username to be black or white
+     * @param username username to be black or white
      */
-    private void claimSpot(User user)
+    private void claimSpot(int gameID, String username, ChessGame.TeamColor teamColor)
     {
-
+        if (teamColor.equals(ChessGame.TeamColor.WHITE))
+        {
+            gameMap.get(gameID).setWhiteUsername(username);
+        }
     }
 
     /**
@@ -73,11 +77,11 @@ public class GameDAO
     /**
      * Removes a game from the database
      *
-     * @param game game to be removed
+     * @param gameName game to be removed
      */
-    private void removeGame(Game game)
+    private void removeGame(String gameName)
     {
-
+        gameMap.remove(gameName);
     }
 
 }

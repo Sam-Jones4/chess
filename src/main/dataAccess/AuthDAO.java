@@ -11,14 +11,20 @@ public class AuthDAO
     /**
      * Creates a map to hold authTokens
      */
-    private Map<String, Authtoken> authtokenMap;
+    private static Map<String, Authtoken> authtokenMap;
+
+    public Authtoken getAuthtoken(String token)
+    {
+        return authtokenMap.get(token);
+    }
+
 
     /**
      * Clears authToken data
      */
     private void clearAuthtokens()
     {
-
+        authtokenMap.clear();
     }
 
     /**
@@ -28,7 +34,7 @@ public class AuthDAO
      */
     private void insertAuthtoken(Authtoken authtoken)
     {
-
+        authtokenMap.put(authtoken.getAuthToken(), authtoken);
     }
 
     /**
@@ -42,30 +48,12 @@ public class AuthDAO
     }
 
     /**
-     * Finds all the authTokens
-     */
-    private void findAllAuthtokens()
-    {
-
-    }
-
-    /**
      * Removes an authToken
      *
      * @param authtoken authToken to remove
      */
     private void removeAuthtoken(Authtoken authtoken)
     {
-
-    }
-
-    /**
-     * Updates an authToken
-     *
-     * @param authtoken authToken to update
-     */
-    private void updateAuthtoken(Authtoken authtoken)
-    {
-
+        authtokenMap.remove(authtoken.getAuthToken());
     }
 }

@@ -1,6 +1,8 @@
 package dataAccess;
 
 import models.User;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -11,14 +13,14 @@ public class UserDAO
     /**
      * Creates a map to store users
      */
-    private Map<String, User> userMap;
+    private static Map<String, User> userMap;
 
     /**
      * Clears all users from the database
      */
     private void clearUsers()
     {
-
+        userMap.clear();
     }
 
     /**
@@ -28,45 +30,25 @@ public class UserDAO
      */
     private void insertUser(User user)
     {
-
+        userMap.put(user.getUsername(), user);
     }
 
     /**
      * Finds a user in the database
      *
-     * @param user user to find
+     * @param username user to find
      */
-    private void findUser(User user)
+    private User findUser(String username)
     {
-
+        return userMap.get(username);
     }
 
     /**
      * Finds all users in the database
      */
-    private void findAllUsers()
+    private User[] findAllUsers()
     {
-
-    }
-
-    /**
-     * Removes a user from the database
-     *
-     * @param user user to remove
-     */
-    private void removeUser(User user)
-    {
-
-    }
-
-    /**
-     * Updates a user in the database
-     *
-     * @param user user to update
-     */
-    private void updateUser(User user)
-    {
-
+        return userMap.values().toArray(new User[0]);
     }
 
 }
