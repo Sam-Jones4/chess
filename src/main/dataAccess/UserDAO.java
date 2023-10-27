@@ -43,12 +43,5 @@ public class UserDAO
         return userMap.get(username);
     }
 
-    /**
-     * Finds all users in the database
-     */
-    private User[] findAllUsers()
-    {
-        return userMap.values().toArray(new User[0]);
-    }
 
 }

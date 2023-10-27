@@ -30,25 +30,25 @@ public class GameDAO
      */
     private void insertGame(Game game)
     {
-        gameMap.put(game.getGameName(), game);
+        gameMap.put(game.getGameID(), game);
     }
 
     /**
      * Finds a game
      *
-     * @param gameName game to find
+     * @param gameID game to find
      */
-    private Game findGame(String gameName)
+    private Game findGame(int gameID)
     {
-        return gameMap.get(gameName);
+        return gameMap.get(gameID);
     }
 
     /**
      * Finds all the games
      */
-    private Map<String,Game> findAllGames()
+    private Game[] findAllGames()
     {
-        return gameMap;
+        return gameMap.values().toArray(new Game[0]);
     }
 
     /**
@@ -61,6 +61,10 @@ public class GameDAO
         if (teamColor.equals(ChessGame.TeamColor.WHITE))
         {
             gameMap.get(gameID).setWhiteUsername(username);
+        }
+        else
+        {
+            gameMap.get(gameID).setBlackUsername(username);
         }
     }
 
