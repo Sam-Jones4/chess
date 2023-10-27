@@ -22,7 +22,7 @@ public class LoginHandler implements Route
         LoginService service = new LoginService();
         LoginResponse result = service.login(loginRequest);
 
-        if (result.getMessage() == null)
+        if (result.getUsername() != null && result.getAuthToken() != null)
         {
             response.status(200);
         }

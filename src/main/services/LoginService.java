@@ -1,10 +1,11 @@
 package services;
 
 import requests.LoginRequest;
+import responses.LoginResponse;
 
 public class LoginService
 {
-    public LoginService login(LoginRequest loginRequest)
+    public LoginResponse login(LoginRequest loginRequest)
     {
         return null;
     }
