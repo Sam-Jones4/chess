@@ -7,6 +7,8 @@ import models.User;
 import requests.RegisterRequest;
 import responses.RegisterResponse;
 
+import java.util.UUID;
+
 public class RegisterService
 {
     public RegisterResponse registerUser(RegisterRequest r)
@@ -22,9 +24,14 @@ public class RegisterService
             return new RegisterResponse("Error: already taken");
         }
 
-        Authtoken token = userDAO.insertUser(r.getUsername(), r.getPassword(), r.getEmail());
+        userDAO.insertUser(r.getUsername(), r.getPassword(), r.getEmail());
+        AuthDAO authDAO = new AuthDAO();
 
-        return new RegisterResponse(token.getAuthToken());
+        Authtoken authtoken = new Authtoken(UUID.randomUUID().toString(),r.getUsername());
+
+        authDAO.insertAuthtoken(authtoken);
+
+        return new RegisterResponse(authtoken.getAuthToken());
     }
 
 }

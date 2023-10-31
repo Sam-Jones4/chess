@@ -8,7 +8,7 @@ import responses.ClearApplicationResponse;
 
 public class ClearApplicationService
 {
-    public ClearApplicationResponse clearApplication(String token)
+    public ClearApplicationResponse clearApplication()
     {
         AuthDAO authDAO = new AuthDAO();
         UserDAO userDAO = new UserDAO();

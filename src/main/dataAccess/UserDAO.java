@@ -33,18 +33,10 @@ public class UserDAO
      * @param email given email
      * @return returns the authtoken for the new user
      */
-    public Authtoken insertUser(String username, String password, String email)
+    public void insertUser(String username, String password, String email)
     {
         User newUser = new User(username, password, email);
         userMap.put(username, newUser);
-
-        AuthDAO authDAO = new AuthDAO();
-
-        Authtoken authtoken = new Authtoken(UUID.randomUUID().toString(),username);
-
-        authDAO.insertAuthtoken(authtoken);
-
-        return authtoken;
     }
 
     /**
