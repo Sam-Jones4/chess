@@ -10,16 +10,15 @@ public class LogoutResponse
      */
     private String message;
 
+
+    public LogoutResponse()
+    {}
+
     /**
      * Class constructor
      *
      * @param message sets message equal to the given message
      */
-    public LogoutResponse(String message, String authToken)
-    {
-        this.message = message;
-    }
-
     public LogoutResponse(String message)
     {
         this.message = message;
