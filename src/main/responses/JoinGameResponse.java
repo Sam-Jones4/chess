@@ -22,6 +22,12 @@ public class JoinGameResponse
         this.message = message;
     }
 
+    public JoinGameResponse(String message)
+    {
+        this.message = message;
+    }
+
+
     public String getMessage()
     {
         return message;

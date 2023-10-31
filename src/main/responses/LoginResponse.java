@@ -32,6 +32,17 @@ public class LoginResponse
         this.message = message;
     }
 
+    /**
+     * Another constructor for just a message
+     *
+     * @param message sets message to the message
+     */
+    public LoginResponse(String message)
+    {
+        this.message = message;
+    }
+
+
     public String getUsername()
     {
         return username;

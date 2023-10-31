@@ -55,6 +55,11 @@ public class ListGamesResponse
         this.games = games;
     }
 
+    public ListGamesResponse(String message)
+    {
+        this.message = message;
+    }
+
     public String getMessage()
     {
         return message;

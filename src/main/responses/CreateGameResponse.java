@@ -26,6 +26,12 @@ public class CreateGameResponse
         this.message = message;
     }
 
+    public CreateGameResponse(String message)
+    {
+        this.message = message;
+    }
+
+
     public int getGameID()
     {
         return gameID;
