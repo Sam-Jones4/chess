@@ -22,7 +22,7 @@ public class AuthDAO
     /**
      * Clears authToken data
      */
-    private void clearAuthtokens()
+    public void clearAuthtokens()
     {
         authtokenMap.clear();
     }
@@ -32,7 +32,7 @@ public class AuthDAO
      *
      * @param authtoken given authToken to insert
      */
-    private void insertAuthtoken(Authtoken authtoken)
+    public void insertAuthtoken(Authtoken authtoken)
     {
         authtokenMap.put(authtoken.getAuthToken(), authtoken);
     }
@@ -42,9 +42,9 @@ public class AuthDAO
      *
      * @param authtoken authToken to find
      */
-    private void findAuthtoken(Authtoken authtoken)
+    public Authtoken findAuthtoken(Authtoken authtoken)
     {
-
+        return authtokenMap.get(authtoken.getAuthToken());
     }
 
     /**
@@ -52,7 +52,7 @@ public class AuthDAO
      *
      * @param authtoken authToken to remove
      */
-    private void removeAuthtoken(Authtoken authtoken)
+    public void removeAuthtoken(Authtoken authtoken)
     {
         authtokenMap.remove(authtoken.getAuthToken());
     }

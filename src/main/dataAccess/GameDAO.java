@@ -18,7 +18,7 @@ public class GameDAO
     /**
      * Clears game data
      */
-    private void clearGame()
+    public void clearGames()
     {
         gameMap.clear();
     }
@@ -28,7 +28,7 @@ public class GameDAO
      *
      * @param game game to insert
      */
-    private void insertGame(Game game)
+    public void insertGame(Game game)
     {
         gameMap.put(game.getGameID(), game);
     }
@@ -38,7 +38,7 @@ public class GameDAO
      *
      * @param gameID game to find
      */
-    private Game findGame(int gameID)
+    public Game findGame(int gameID)
     {
         return gameMap.get(gameID);
     }
@@ -46,7 +46,7 @@ public class GameDAO
     /**
      * Finds all the games
      */
-    private Game[] findAllGames()
+    public Game[] findAllGames()
     {
         return gameMap.values().toArray(new Game[0]);
     }
@@ -56,7 +56,7 @@ public class GameDAO
      *
      * @param username username to be black or white
      */
-    private void claimSpot(int gameID, String username, ChessGame.TeamColor teamColor)
+    public void claimSpot(int gameID, String username, ChessGame.TeamColor teamColor)
     {
         if (teamColor.equals(ChessGame.TeamColor.WHITE))
         {
@@ -73,7 +73,7 @@ public class GameDAO
      *
      * @param game game to be updated
      */
-    private void updateGame(Game game)
+    public void updateGame(Game game)
     {
 
     }
@@ -83,7 +83,7 @@ public class GameDAO
      *
      * @param gameName game to be removed
      */
-    private void removeGame(String gameName)
+    public void removeGame(String gameName)
     {
         gameMap.remove(gameName);
     }

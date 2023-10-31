@@ -1,9 +1,11 @@
 package dataAccess;
 
+import models.Authtoken;
 import models.User;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Data access object class to store and retrieve user data
@@ -18,19 +20,31 @@ public class UserDAO
     /**
      * Clears all users from the database
      */
-    private void clearUsers()
+    public void clearUsers()
     {
         userMap.clear();
     }
 
     /**
-     * Inserts a user into the database
+     * Inserts a new user into the database
      *
-     * @param user user to insert
+     * @param username given username to create a new user
+     * @param password given password
+     * @param email given email
+     * @return returns the authtoken for the new user
      */
-    private void insertUser(User user)
+    public Authtoken insertUser(String username, String password, String email)
     {
-        userMap.put(user.getUsername(), user);
+        User newUser = new User(username, password, email);
+        userMap.put(username, newUser);
+
+        AuthDAO authDAO = new AuthDAO();
+
+        Authtoken authtoken = new Authtoken(UUID.randomUUID().toString(),username);
+
+        authDAO.insertAuthtoken(authtoken);
+
+        return authtoken;
     }
 
     /**
@@ -38,7 +52,7 @@ public class UserDAO
      *
      * @param username user to find
      */
-    private User findUser(String username)
+    public User findUser(String username)
     {
         return userMap.get(username);
     }
