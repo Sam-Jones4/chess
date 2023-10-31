@@ -2,6 +2,7 @@ package handlers;
 
 import com.google.gson.Gson;
 import requests.JoinGameRequest;
+import responses.ClearApplicationResponse;
 import responses.JoinGameResponse;
 import responses.ListGamesResponse;
 import services.JoinGameService;
@@ -16,21 +17,25 @@ public class ListGamesHandler implements Route
     @Override
     public Object handle(Request request, Response response) throws Exception
     {
-        String token = request.headers("authorization");
+        ListGamesResponse result;
 
-        ListGamesService service = new ListGamesService();
-        ListGamesResponse result = service.listGames(token);
+        try {
+            String token = request.headers("authorization");
 
-        if (result.getGames() != null)
+            ListGamesService service = new ListGamesService();
+            result = service.listGames(token);
+
+            if (result.getGames() != null)
+            {
+                response.status(200);
+            }
+            else if(result.getMessage() == "Error: unauthorized")
+            {
+                response.status(401);
+            }
+        } catch (Exception exception)
         {
-            response.status(200);
-        }
-        else if(result.getMessage() == "Error: unauthorized")
-        {
-            response.status(401);
-        }
-        else
-        {
+            result = new ListGamesResponse("Error: " + exception.getMessage());
             response.status(500);
         }
 

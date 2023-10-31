@@ -2,6 +2,7 @@ package handlers;
 
 import com.google.gson.Gson;
 import requests.JoinGameRequest;
+import responses.ClearApplicationResponse;
 import responses.JoinGameResponse;
 import services.JoinGameService;
 import spark.Request;
@@ -13,31 +14,35 @@ public class JoinGameHandler implements Route
     @Override
     public Object handle(Request request, Response response) throws Exception
     {
-        JoinGameRequest joinGameRequest = new Gson().fromJson(request.body(), JoinGameRequest.class);
+        JoinGameResponse result;
 
-        String token = request.headers("authorization");
+        try {
+            JoinGameRequest joinGameRequest = new Gson().fromJson(request.body(), JoinGameRequest.class);
 
-        JoinGameService service = new JoinGameService();
-        JoinGameResponse result = service.joinGame(joinGameRequest, token);
+            String token = request.headers("authorization");
 
-        if (result.getMessage() == null)
+            JoinGameService service = new JoinGameService();
+            result = service.joinGame(joinGameRequest, token);
+
+            if (result.getMessage() == null)
+            {
+                response.status(200);
+            }
+            else if (result.getMessage() == "Error: bad request")
+            {
+                response.status(400);
+            }
+            else if(result.getMessage() == "Error: unauthorized")
+            {
+                response.status(401);
+            }
+            else if (result.getMessage() == "Error: already taken")
+            {
+                response.status(403);
+            }
+        } catch (Exception exception)
         {
-            response.status(200);
-        }
-        else if (result.getMessage() == "Error: bad request")
-        {
-            response.status(400);
-        }
-        else if(result.getMessage() == "Error: unauthorized")
-        {
-            response.status(401);
-        }
-        else if (result.getMessage() == "Error: already taken")
-        {
-            response.status(403);
-        }
-        else
-        {
+            result = new JoinGameResponse("Error: " + exception.getMessage());
             response.status(500);
         }
 

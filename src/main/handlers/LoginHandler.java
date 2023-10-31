@@ -3,8 +3,10 @@ package handlers;
 import com.google.gson.Gson;
 import requests.JoinGameRequest;
 import requests.LoginRequest;
+import requests.RegisterRequest;
 import responses.JoinGameResponse;
 import responses.LoginResponse;
+import responses.RegisterResponse;
 import services.JoinGameService;
 import services.LoginService;
 import spark.Request;
@@ -17,21 +19,25 @@ public class LoginHandler implements Route
     @Override
     public Object handle(Request request, Response response) throws Exception
     {
-        LoginRequest loginRequest = new Gson().fromJson(request.body(), LoginRequest.class);
+        LoginResponse result;
+        try
+        {
+            LoginRequest loginRequest = new Gson().fromJson(request.body(), LoginRequest.class);
 
-        LoginService service = new LoginService();
-        LoginResponse result = service.login(loginRequest);
+            LoginService service = new LoginService();
+            result = service.login(loginRequest);
 
-        if (result.getUsername() != null && result.getAuthToken() != null)
+            if (result.getUsername() != null && result.getAuthToken() != null)
+            {
+                response.status(200);
+            }
+            else if(result.getMessage() == "Error: unauthorized")
+            {
+                response.status(401);
+            }
+        }catch (Exception exception)
         {
-            response.status(200);
-        }
-        else if(result.getMessage() == "Error: unauthorized")
-        {
-            response.status(401);
-        }
-        else
-        {
+            result = new LoginResponse("Error: " + exception.getMessage());
             response.status(500);
         }
 

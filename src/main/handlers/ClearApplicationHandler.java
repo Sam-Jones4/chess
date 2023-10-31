@@ -1,6 +1,8 @@
 package handlers;
 
+import com.google.gson.Gson;
 import responses.ClearApplicationResponse;
+import responses.RegisterResponse;
 import services.ClearApplicationService;
 import spark.Request;
 import spark.Response;
@@ -11,20 +13,23 @@ public class ClearApplicationHandler implements Route
     @Override
     public Object handle(Request request, Response response) throws Exception
     {
-        String token = request.headers("/db");
+        ClearApplicationResponse result;
 
-        ClearApplicationService service = new ClearApplicationService();
-        ClearApplicationResponse result = service.clearApplication(token);
+        try
+        {
+            ClearApplicationService service = new ClearApplicationService();
+            result = service.clearApplication();
 
-        if (result.getMessage() == null)
+            if (result.getMessage() == null)
+            {
+                response.status(200);
+            }
+        }catch (Exception exception)
         {
-            response.status(200);
-        }
-        else
-        {
+            result = new ClearApplicationResponse("Error: " + exception.getMessage());
             response.status(500);
         }
 
-        return null;
+        return new Gson().toJson(result);
     }
 }
