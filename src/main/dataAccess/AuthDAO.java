@@ -42,9 +42,9 @@ public class AuthDAO
      *
      * @param authtoken authToken to find
      */
-    public Authtoken findAuthtoken(Authtoken authtoken)
+    public Authtoken findAuthtoken(String authtoken)
     {
-        return authtokenMap.get(authtoken.getAuthToken());
+        return authtokenMap.get(authtoken);
     }
 
     /**
@@ -52,8 +52,8 @@ public class AuthDAO
      *
      * @param authtoken authToken to remove
      */
-    public void removeAuthtoken(Authtoken authtoken)
+    public void removeAuthtoken(String authtoken)
     {
-        authtokenMap.remove(authtoken.getAuthToken());
+        authtokenMap.remove(authtoken);
     }
 }

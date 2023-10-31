@@ -25,6 +25,7 @@ public class RegisterService
         }
 
         userDAO.insertUser(r.getUsername(), r.getPassword(), r.getEmail());
+
         AuthDAO authDAO = new AuthDAO();
 
         Authtoken authtoken = new Authtoken(UUID.randomUUID().toString(),r.getUsername());
