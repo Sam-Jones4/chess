@@ -11,31 +11,37 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
+import java.util.Objects;
+
 public class RegisterHandler implements Route
 {
 
     @Override
     public Object handle(Request request, Response response) throws Exception
     {
-        RegisterRequest registerRequest = new Gson().fromJson(request.body(), RegisterRequest.class);
+        RegisterResponse result;
+        try
+        {
+            RegisterRequest registerRequest = new Gson().fromJson(request.body(), RegisterRequest.class);
 
-        RegisterService service = new RegisterService();
-        RegisterResponse result = service.registerUser(registerRequest);
+            RegisterService service = new RegisterService();
+            result = service.registerUser(registerRequest);
 
-        if (result.getUsername() != null && result.getAuthToken() != null)
+            if (result.getUsername() != null && result.getAuthToken() != null)
+            {
+                response.status(200);
+            }
+            else if (Objects.equals(result.getMessage(), "Error: bad request"))
+            {
+                response.status(400);
+            }
+            else if (Objects.equals(result.getMessage(), "Error: already taken"))
+            {
+                response.status(403);
+            }
+        } catch (Exception exception)
         {
-            response.status(200);
-        }
-        else if (result.getMessage() == "Error: bad request")
-        {
-            response.status(400);
-        }
-        else if (result.getMessage() == "Error: already taken")
-        {
-            response.status(403);
-        }
-        else
-        {
+            result = new RegisterResponse("Error: " + exception.getMessage());
             response.status(500);
         }
 

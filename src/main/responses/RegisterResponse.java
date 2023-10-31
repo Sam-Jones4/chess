@@ -33,6 +33,17 @@ public class RegisterResponse
         this.message = message;
     }
 
+    /**
+     * Another class constructor that just takes a messages
+     *
+     * @param message sets message to the message
+     */
+    public RegisterResponse(String message)
+    {
+        this.message = message;
+    }
+
+
     public String getUsername() {
         return username;
     }
