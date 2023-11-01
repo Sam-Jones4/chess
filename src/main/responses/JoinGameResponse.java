@@ -12,16 +12,15 @@ public class JoinGameResponse
      */
     private String message;
 
+
+    public JoinGameResponse()
+    {}
+
     /**
      * Class constructor
      *
      * @param message sets message to given message
      */
-    public JoinGameResponse(String authToken, String message)
-    {
-        this.message = message;
-    }
-
     public JoinGameResponse(String message)
     {
         this.message = message;
