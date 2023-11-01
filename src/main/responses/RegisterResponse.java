@@ -24,13 +24,11 @@ public class RegisterResponse
      *
      * @param username sets username to given username
      * @param authToken sets authToken to given authToken
-     * @param message sets message to given message
      */
-    public RegisterResponse(String username, String authToken, String message)
+    public RegisterResponse(String username, String authToken)
     {
         this.username = username;
         this.authToken = authToken;
-        this.message = message;
     }
 
     /**

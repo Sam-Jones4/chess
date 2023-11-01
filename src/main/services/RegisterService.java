@@ -32,7 +32,7 @@ public class RegisterService
 
         authDAO.insertAuthtoken(authtoken);
 
-        return new RegisterResponse(authtoken.getAuthToken());
+        return new RegisterResponse(r.getUsername(),authtoken.getAuthToken());
     }
 
 }
