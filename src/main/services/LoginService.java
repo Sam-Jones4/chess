@@ -32,6 +32,6 @@ public class LoginService
 
         authDAO.insertAuthtoken(authtoken);
 
-        return new LoginResponse(authtoken.getAuthToken());
+        return new LoginResponse(loginRequest.getUsername(), authtoken.getAuthToken());
     }
 }

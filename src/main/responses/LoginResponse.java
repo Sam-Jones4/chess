@@ -23,13 +23,11 @@ public class LoginResponse
      *
      * @param username sets the username to username
      * @param authToken sets the authToken to authToken
-     * @param message sets the message to message
      */
-    public LoginResponse(String username, String authToken, String message)
+    public LoginResponse(String username, String authToken)
     {
         this.username = username;
         this.authToken = authToken;
-        this.message = message;
     }
 
     /**
