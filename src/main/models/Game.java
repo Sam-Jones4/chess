@@ -48,6 +48,12 @@ public class Game
         this.game = game;
     }
 
+    public Game(int gameID, String gameName)
+    {
+        this.gameID = gameID;
+        this.gameName = gameName;
+    }
+
     public int getGameID()
     {
         return gameID;
