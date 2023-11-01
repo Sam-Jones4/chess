@@ -34,6 +34,6 @@ public class CreateGameService
 
         gameDAO.insertGame(game);
 
-        return new CreateGameResponse(game.getGameID(), null);
+        return new CreateGameResponse(game.getGameID());
     }
 }

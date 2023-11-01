@@ -18,12 +18,10 @@ public class CreateGameResponse
      * Class constructor
      *
      * @param gameID sets gameID to given gameID
-     * @param message sets message to given message
      */
-    public CreateGameResponse(int gameID, String message)
+    public CreateGameResponse(int gameID)
     {
         this.gameID = gameID;
-        this.message = message;
     }
 
     public CreateGameResponse(String message)
