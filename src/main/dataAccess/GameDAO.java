@@ -3,6 +3,8 @@ package dataAccess;
 import chess.ChessGame;
 import models.Game;
 import models.User;
+
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -13,7 +15,7 @@ public class GameDAO
     /**
      * Creates a map to store games
      */
-    private static Map<Integer, Game> gameMap;
+    private static Map<Integer, Game> gameMap = new HashMap<>();
 
     /**
      * Clears game data

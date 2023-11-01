@@ -3,6 +3,7 @@ package dataAccess;
 import models.Authtoken;
 import models.User;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -15,7 +16,7 @@ public class UserDAO
     /**
      * Creates a map to store users
      */
-    private static Map<String, User> userMap;
+    private static Map<String, User> userMap = new HashMap<>();
 
     /**
      * Clears all users from the database
