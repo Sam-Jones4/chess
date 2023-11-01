@@ -18,19 +18,22 @@ public class CreateGameService
 
         if (request.getGameName() == null)
         {
-            return new CreateGameResponse("Errror: bad request");
+            return new CreateGameResponse("Error: bad request");
         }
         if (authDAO.findAuthtoken(token) == null)
         {
             return new CreateGameResponse("Error: unauthorized");
         }
 
-        gameDAO.insertGame(request.getGameName());
+        Game game = new Game(UUID.randomUUID().hashCode(), request.getGameName());
 
-        Authtoken authtoken = new Authtoken(UUID.randomUUID().toString(),request.getGameName());
+        if (gameDAO.findGame(game.getGameID()) != null)
+        {
+            return new CreateGameResponse("Error: bad request");
+        }
 
-        authDAO.insertAuthtoken(authtoken);
+        gameDAO.insertGame(game);
 
-        return new CreateGameResponse(authtoken.getAuthToken());
+        return new CreateGameResponse(game.getGameID(), null);
     }
 }
