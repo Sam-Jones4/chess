@@ -10,6 +10,8 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
+import java.util.Objects;
+
 public class CreateGameHandler implements Route
 {
     @Override
@@ -33,11 +35,11 @@ public class CreateGameHandler implements Route
             {
                 response.status(200);
             }
-            else if (result.getMessage() == "Error: bad request")
+            else if (Objects.equals(result.getMessage(), "Error: bad request"))
             {
                 response.status(400);
             }
-            else if(result.getMessage() == "Error: unauthorized")
+            else if(Objects.equals(result.getMessage(), "Error: unauthorized"))
             {
                 response.status(401);
             }

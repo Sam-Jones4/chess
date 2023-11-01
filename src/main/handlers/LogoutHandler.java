@@ -11,6 +11,8 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
+import java.util.Objects;
+
 public class LogoutHandler implements Route
 {
     @Override
@@ -28,7 +30,7 @@ public class LogoutHandler implements Route
             {
                 response.status(200);
             }
-            else if(result.getMessage() == "Error: unauthorized")
+            else if(Objects.equals(result.getMessage(), "Error: unauthorized"))
             {
                 response.status(401);
             }
