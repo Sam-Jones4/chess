@@ -25,7 +25,8 @@ public class CreateGameService
             return new CreateGameResponse("Error: unauthorized");
         }
 
-        Game game = new Game(UUID.randomUUID().hashCode(), request.getGameName());
+        int randomInt = UUID.randomUUID().hashCode();
+        Game game = new Game(randomInt >= 0 ? randomInt : -1 * randomInt, request.getGameName());
 
         if (gameDAO.findGame(game.getGameID()) != null)
         {

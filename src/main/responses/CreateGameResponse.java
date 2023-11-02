@@ -8,7 +8,7 @@ public class CreateGameResponse
     /**
      * Creates a variable to hold a gameID
      */
-    private int gameID;
+    private Integer gameID;
     /**
      * Creates a variable to hold a message
      */
