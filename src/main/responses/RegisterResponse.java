@@ -54,10 +54,6 @@ public class RegisterResponse
         return authToken;
     }
 
-    public void setAuthToken(String authToken) {
-        this.authToken = authToken;
-    }
-
     public String getMessage() {
         return message;
     }

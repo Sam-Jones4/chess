@@ -35,11 +35,6 @@ public class CreateGameResponse
         return gameID;
     }
 
-    public void setGameID(int gameID)
-    {
-        this.gameID = gameID;
-    }
-
     public String getMessage()
     {
         return message;
