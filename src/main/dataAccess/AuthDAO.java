@@ -15,11 +15,6 @@ public class AuthDAO
      */
     private static Map<String, Authtoken> authtokenMap = new HashMap<>();
 
-    public Authtoken getAuthtoken(String token)
-    {
-        return authtokenMap.get(token);
-    }
-
 
     /**
      * Clears authToken data

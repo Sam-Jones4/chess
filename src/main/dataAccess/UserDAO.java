@@ -1,12 +1,8 @@
 package dataAccess;
 
-import models.Authtoken;
 import models.User;
-
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * Data access object class to store and retrieve user data

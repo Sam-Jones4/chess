@@ -2,7 +2,6 @@ package dataAccess;
 
 import chess.ChessGame;
 import models.Game;
-import models.User;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -68,26 +67,6 @@ public class GameDAO
         {
             gameMap.get(gameID).setBlackUsername(username);
         }
-    }
-
-    /**
-     * Updates a game in the database
-     *
-     * @param game game to be updated
-     */
-    public void updateGame(Game game)
-    {
-
-    }
-
-    /**
-     * Removes a game from the database
-     *
-     * @param gameName game to be removed
-     */
-    public void removeGame(String gameName)
-    {
-        gameMap.remove(gameName);
     }
 
 }
