@@ -15,7 +15,7 @@ public class JoinGameService
         GameDAO gameDAO = new GameDAO();
         AuthDAO authDAO = new AuthDAO();
 
-        if (joinGameRequest.getGameID() == 0 || joinGameRequest.getPlayerColor() == null)
+        if (joinGameRequest.getGameID() == 0)
         {
             return new JoinGameResponse("Error: bad request");
         }
@@ -26,25 +26,32 @@ public class JoinGameService
 
         if (gameDAO.findGame(joinGameRequest.getGameID()) != null)
         {
-            if (joinGameRequest.getPlayerColor() == ChessGame.TeamColor.BLACK)
+            if (joinGameRequest.getPlayerColor() != null)
             {
-                if (gameDAO.findGame(joinGameRequest.getGameID()).getBlackUsername() != null)
+                if (joinGameRequest.getPlayerColor() == ChessGame.TeamColor.BLACK)
                 {
-                    return new JoinGameResponse("Error: already taken");
+                    if (gameDAO.findGame(joinGameRequest.getGameID()).getBlackUsername() != null)
+                    {
+                        return new JoinGameResponse("Error: already taken");
+                    }
+                }
+                if (joinGameRequest.getPlayerColor() == ChessGame.TeamColor.WHITE)
+                {
+                    if (gameDAO.findGame(joinGameRequest.getGameID()).getWhiteUsername() != null)
+                    {
+                        return new JoinGameResponse("Error: already taken");
+                    }
                 }
             }
-            if (joinGameRequest.getPlayerColor() == ChessGame.TeamColor.WHITE)
-            {
-                if (gameDAO.findGame(joinGameRequest.getGameID()).getWhiteUsername() != null)
-                {
-                    return new JoinGameResponse("Error: already taken");
-                }
-            }
+
         }
 
         Authtoken authtoken = authDAO.findAuthtoken(token);
 
-        gameDAO.claimSpot(joinGameRequest.getGameID(), authtoken.getUsername(), joinGameRequest.getPlayerColor());
+        if (joinGameRequest.getPlayerColor() != null)
+        {
+            gameDAO.claimSpot(joinGameRequest.getGameID(), authtoken.getUsername(), joinGameRequest.getPlayerColor());
+        }
 
         return new JoinGameResponse();
     }

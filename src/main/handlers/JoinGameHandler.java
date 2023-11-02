@@ -44,6 +44,8 @@ public class JoinGameHandler implements Route
             }
         } catch (Exception exception)
         {
+            System.out.println(exception);
+            exception.printStackTrace();
             result = new JoinGameResponse("Error: " + exception.getMessage());
             response.status(500);
         }
