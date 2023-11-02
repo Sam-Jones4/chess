@@ -1,8 +1,6 @@
 package services;
 
 import dataAccess.AuthDAO;
-import dataAccess.UserDAO;
-import models.Authtoken;
 import responses.LogoutResponse;
 
 public class LogoutService

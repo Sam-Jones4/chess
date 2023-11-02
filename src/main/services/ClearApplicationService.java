@@ -3,7 +3,6 @@ package services;
 import dataAccess.AuthDAO;
 import dataAccess.GameDAO;
 import dataAccess.UserDAO;
-import models.Game;
 import responses.ClearApplicationResponse;
 
 public class ClearApplicationService

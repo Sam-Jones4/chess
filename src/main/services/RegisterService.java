@@ -3,7 +3,6 @@ package services;
 import dataAccess.AuthDAO;
 import dataAccess.UserDAO;
 import models.Authtoken;
-import models.User;
 import requests.RegisterRequest;
 import responses.RegisterResponse;
 

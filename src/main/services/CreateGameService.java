@@ -2,7 +2,6 @@ package services;
 
 import dataAccess.AuthDAO;
 import dataAccess.GameDAO;
-import models.Authtoken;
 import models.Game;
 import requests.CreateGameRequest;
 import responses.CreateGameResponse;

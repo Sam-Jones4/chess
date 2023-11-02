@@ -3,7 +3,6 @@ package services;
 import chess.ChessGame;
 import dataAccess.AuthDAO;
 import dataAccess.GameDAO;
-import dataAccess.UserDAO;
 import models.Authtoken;
 import requests.JoinGameRequest;
 import responses.JoinGameResponse;
