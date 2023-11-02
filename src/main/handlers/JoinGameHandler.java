@@ -2,7 +2,6 @@ package handlers;
 
 import com.google.gson.Gson;
 import requests.JoinGameRequest;
-import responses.ClearApplicationResponse;
 import responses.JoinGameResponse;
 import services.JoinGameService;
 import spark.Request;

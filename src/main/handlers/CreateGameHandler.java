@@ -1,9 +1,7 @@
 package handlers;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import requests.CreateGameRequest;
-import responses.ClearApplicationResponse;
 import responses.CreateGameResponse;
 import services.CreateGameService;
 import spark.Request;
