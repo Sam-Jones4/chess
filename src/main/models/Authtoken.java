@@ -31,11 +31,6 @@ public class Authtoken
         return authToken;
     }
 
-    public void setAuthToken(String authToken)
-    {
-        this.authToken = authToken;
-    }
-
     public String getUsername()
     {
         return username;

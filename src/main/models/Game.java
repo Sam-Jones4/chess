@@ -4,7 +4,6 @@ package models;
  * A model class for a game
  */
 
-import chess.ChessGame;
 import chess.ChessGameImpl;
 
 public class Game
@@ -59,11 +58,6 @@ public class Game
         return gameID;
     }
 
-    public void setGameID(int gameID)
-    {
-        this.gameID = gameID;
-    }
-
     public String getWhiteUsername()
     {
         return whiteUsername;
@@ -87,11 +81,6 @@ public class Game
     public String getGameName()
     {
         return gameName;
-    }
-
-    public void setGameName(String gameName)
-    {
-        this.gameName = gameName;
     }
 
     public ChessGameImpl getGame()
