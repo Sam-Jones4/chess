@@ -9,23 +9,18 @@ import models.User;
 import requests.LoginRequest;
 import responses.LoginResponse;
 
+import java.sql.Connection;
 import java.util.Objects;
 import java.util.UUID;
 
 public class LoginService
 {
-    public LoginResponse login(LoginRequest loginRequest)
+    public LoginResponse login(LoginRequest loginRequest) throws DataAccessException
     {
         Database database = new Database();
+        Connection connection = database.getConnection();
 
-        try {
-            database.getConnection();
-        } catch (DataAccessException exception)
-        {
-
-        }
-
-        UserDAO userDAO = new UserDAO();
+        UserDAO userDAO = new UserDAO(connection);
         User user = userDAO.findUser(loginRequest.getUsername());
 
         if (user == null)

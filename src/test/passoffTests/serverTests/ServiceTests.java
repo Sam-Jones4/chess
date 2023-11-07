@@ -86,7 +86,7 @@ public class ServiceTests
     }
 
     @Test
-    void LoginPassTest()
+    void LoginPassTest() throws DataAccessException
     {
         AuthDAO authDAO = new AuthDAO();
         Authtoken authtoken = new Authtoken("thisismytoken", "samsusername");
@@ -106,7 +106,7 @@ public class ServiceTests
     }
 
     @Test
-    void LoginFailTest()
+    void LoginFailTest() throws DataAccessException
     {
         AuthDAO authDAO = new AuthDAO();
         Authtoken authtoken = new Authtoken("thisisNOTmytoken", "samsusername");
