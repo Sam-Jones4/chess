@@ -3,23 +3,17 @@ package services;
 import dataAccess.*;
 import responses.ClearApplicationResponse;
 
+import java.sql.Connection;
+
 public class ClearApplicationService
 {
-    public ClearApplicationResponse clearApplication()
-    {
+    public ClearApplicationResponse clearApplication() throws DataAccessException {
         Database database = new Database();
+        Connection connection = database.getConnection();
 
-        try {
-            database.getConnection();
-        } catch (DataAccessException exception)
-        {
-
-        }
-
-
-        AuthDAO authDAO = new AuthDAO();
-        UserDAO userDAO = new UserDAO();
-        GameDAO gameDAO = new GameDAO();
+        AuthDAO authDAO = new AuthDAO(connection);
+        UserDAO userDAO = new UserDAO(connection);
+        GameDAO gameDAO = new GameDAO(connection);
 
         authDAO.clearAuthtokens();
         userDAO.clearUsers();

@@ -2,6 +2,7 @@ package passoffTests.serverTests;
 
 import chess.ChessGame;
 import dataAccess.AuthDAO;
+import dataAccess.DataAccessException;
 import dataAccess.GameDAO;
 import dataAccess.UserDAO;
 import models.Authtoken;
@@ -22,8 +23,7 @@ import java.util.ArrayList;
 public class ServiceTests
 {
     @BeforeEach
-    void ClearTestData()
-    {
+    void ClearTestData() throws DataAccessException {
         ClearApplicationService clearApplicationService = new ClearApplicationService();
         clearApplicationService.clearApplication();
     }
@@ -229,8 +229,7 @@ public class ServiceTests
     }
 
     @Test
-    void ClearApplicationTest()
-    {
+    void ClearApplicationTest() throws DataAccessException {
         UserDAO userDAO = new UserDAO();
         userDAO.insertUser("samuser", "password", "sam@gmail.com");
 
