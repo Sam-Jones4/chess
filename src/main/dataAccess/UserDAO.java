@@ -1,6 +1,8 @@
 package dataAccess;
 
 import models.User;
+
+import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,10 +11,21 @@ import java.util.Map;
  */
 public class UserDAO
 {
+    private Connection connection;
+
     /**
      * Creates a map to store users
      */
     private static Map<String, User> userMap = new HashMap<>();
+
+    /**
+     *
+     * @param connection
+     */
+    public UserDAO(Connection connection)
+    {
+        this.connection = connection;
+    }
 
     /**
      * Clears all users from the database

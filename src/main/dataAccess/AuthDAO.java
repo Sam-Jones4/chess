@@ -2,6 +2,7 @@ package dataAccess;
 
 import models.Authtoken;
 
+import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,11 +11,17 @@ import java.util.Map;
  */
 public class AuthDAO
 {
+    private Connection connection;
+
     /**
      * Creates a map to hold authTokens
      */
     private static Map<String, Authtoken> authtokenMap = new HashMap<>();
 
+    public AuthDAO(Connection connection)
+    {
+        this.connection = connection;
+    }
 
     /**
      * Clears authToken data
