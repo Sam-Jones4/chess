@@ -1,6 +1,8 @@
 package services;
 
 import dataAccess.AuthDAO;
+import dataAccess.DataAccessException;
+import dataAccess.Database;
 import dataAccess.UserDAO;
 import models.Authtoken;
 import models.User;
@@ -14,6 +16,15 @@ public class LoginService
 {
     public LoginResponse login(LoginRequest loginRequest)
     {
+        Database database = new Database();
+
+        try {
+            database.getConnection();
+        } catch (DataAccessException exception)
+        {
+
+        }
+
         UserDAO userDAO = new UserDAO();
         User user = userDAO.findUser(loginRequest.getUsername());
 

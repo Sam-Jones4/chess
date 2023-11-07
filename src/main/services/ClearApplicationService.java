@@ -1,14 +1,22 @@
 package services;
 
-import dataAccess.AuthDAO;
-import dataAccess.GameDAO;
-import dataAccess.UserDAO;
+import dataAccess.*;
 import responses.ClearApplicationResponse;
 
 public class ClearApplicationService
 {
     public ClearApplicationResponse clearApplication()
     {
+        Database database = new Database();
+
+        try {
+            database.getConnection();
+        } catch (DataAccessException exception)
+        {
+
+        }
+
+
         AuthDAO authDAO = new AuthDAO();
         UserDAO userDAO = new UserDAO();
         GameDAO gameDAO = new GameDAO();

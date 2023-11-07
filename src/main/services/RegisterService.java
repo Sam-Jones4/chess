@@ -1,6 +1,8 @@
 package services;
 
 import dataAccess.AuthDAO;
+import dataAccess.DataAccessException;
+import dataAccess.Database;
 import dataAccess.UserDAO;
 import models.Authtoken;
 import requests.RegisterRequest;
@@ -12,6 +14,15 @@ public class RegisterService
 {
     public RegisterResponse registerUser(RegisterRequest r)
     {
+        Database database = new Database();
+
+        try {
+            database.getConnection();
+        } catch (DataAccessException exception)
+        {
+
+        }
+
         UserDAO userDAO = new UserDAO();
 
         if (r.getUsername() == null || r.getPassword() == null || r.getEmail() == null)

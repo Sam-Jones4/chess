@@ -2,6 +2,8 @@ package services;
 
 import chess.ChessGame;
 import dataAccess.AuthDAO;
+import dataAccess.DataAccessException;
+import dataAccess.Database;
 import dataAccess.GameDAO;
 import models.Authtoken;
 import requests.JoinGameRequest;
@@ -11,6 +13,15 @@ public class JoinGameService
 {
     public JoinGameResponse joinGame(JoinGameRequest joinGameRequest, String token)
     {
+        Database database = new Database();
+
+        try {
+            database.getConnection();
+        } catch (DataAccessException exception)
+        {
+
+        }
+
         GameDAO gameDAO = new GameDAO();
         AuthDAO authDAO = new AuthDAO();
 
