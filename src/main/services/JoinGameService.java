@@ -9,21 +9,17 @@ import models.Authtoken;
 import requests.JoinGameRequest;
 import responses.JoinGameResponse;
 
+import java.sql.Connection;
+
 public class JoinGameService
 {
-    public JoinGameResponse joinGame(JoinGameRequest joinGameRequest, String token)
+    public JoinGameResponse joinGame(JoinGameRequest joinGameRequest, String token) throws DataAccessException
     {
         Database database = new Database();
+        Connection connection = database.getConnection();
 
-        try {
-            database.getConnection();
-        } catch (DataAccessException exception)
-        {
-
-        }
-
-        GameDAO gameDAO = new GameDAO();
-        AuthDAO authDAO = new AuthDAO();
+        GameDAO gameDAO = new GameDAO(connection);
+        AuthDAO authDAO = new AuthDAO(connection);
 
         if (joinGameRequest.getGameID() == 0)
         {

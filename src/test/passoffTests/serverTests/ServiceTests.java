@@ -168,8 +168,7 @@ public class ServiceTests
     }
 
     @Test
-    void JoinGamePassTest()
-    {
+    void JoinGamePassTest() throws DataAccessException {
         GameDAO gameDAO = new GameDAO();
         Game game1 = new Game(1,"game1");
         gameDAO.insertGame(game1);
@@ -188,8 +187,7 @@ public class ServiceTests
     }
 
     @Test
-    void JoinGameFailTest()
-    {
+    void JoinGameFailTest() throws DataAccessException {
         JoinGameService joinGameService = new JoinGameService();
         JoinGameRequest joinGameRequest = new JoinGameRequest(ChessGame.TeamColor.WHITE, 0);
 
