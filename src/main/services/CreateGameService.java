@@ -8,23 +8,17 @@ import models.Game;
 import requests.CreateGameRequest;
 import responses.CreateGameResponse;
 
+import java.sql.Connection;
 import java.util.UUID;
 
 public class CreateGameService
 {
-    public CreateGameResponse createGame(CreateGameRequest request, String token)
-    {
+    public CreateGameResponse createGame(CreateGameRequest request, String token) throws DataAccessException {
         Database database = new Database();
+        Connection connection = database.getConnection();
 
-        try {
-            database.getConnection();
-        } catch (DataAccessException exception)
-        {
-
-        }
-
-        GameDAO gameDAO = new GameDAO();
-        AuthDAO authDAO = new AuthDAO();
+        GameDAO gameDAO = new GameDAO(connection);
+        AuthDAO authDAO = new AuthDAO(connection);
 
         if (request.getGameName() == null)
         {

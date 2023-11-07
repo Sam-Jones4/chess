@@ -199,8 +199,7 @@ public class ServiceTests
     }
 
     @Test
-    void CreateGamePassTest()
-    {
+    void CreateGamePassTest() throws DataAccessException {
         GameDAO gameDAO = new GameDAO();
 
         AuthDAO authDAO = new AuthDAO();
@@ -218,8 +217,7 @@ public class ServiceTests
     }
 
     @Test
-    void CreateGameFailTest()
-    {
+    void CreateGameFailTest() throws DataAccessException {
         CreateGameService createGameService = new CreateGameService();
         CreateGameRequest createGameRequest = new CreateGameRequest(null);
 
