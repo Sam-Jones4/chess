@@ -122,7 +122,7 @@ public class ServiceTests
     }
 
     @Test
-    void ListGamesPassTest()
+    void ListGamesPassTest() throws DataAccessException
     {
         AuthDAO authDAO = new AuthDAO();
         Authtoken authtoken = new Authtoken("thisismytoken", "samsusername");
@@ -147,8 +147,7 @@ public class ServiceTests
     }
 
     @Test
-    void ListGamesFailTest()
-    {
+    void ListGamesFailTest() throws DataAccessException {
         AuthDAO authDAO = new AuthDAO();
         Authtoken authtoken = new Authtoken("thisismytoken", "samusername");
         authDAO.insertAuthtoken(authtoken);

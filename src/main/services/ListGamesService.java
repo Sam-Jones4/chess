@@ -7,21 +7,17 @@ import dataAccess.GameDAO;
 import models.Game;
 import responses.ListGamesResponse;
 
+import java.sql.Connection;
+
 public class ListGamesService
 {
-    public ListGamesResponse listGames(String token)
+    public ListGamesResponse listGames(String token) throws DataAccessException
     {
         Database database = new Database();
+        Connection connection = database.getConnection();
 
-        try {
-            database.getConnection();
-        } catch (DataAccessException exception)
-        {
-
-        }
-
-        GameDAO gameDAO = new GameDAO();
-        AuthDAO authDAO = new AuthDAO();
+        GameDAO gameDAO = new GameDAO(connection);
+        AuthDAO authDAO = new AuthDAO(connection);
 
         if (authDAO.findAuthtoken(token) == null)
         {
