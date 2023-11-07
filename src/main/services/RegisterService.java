@@ -8,22 +8,16 @@ import models.Authtoken;
 import requests.RegisterRequest;
 import responses.RegisterResponse;
 
+import java.sql.Connection;
 import java.util.UUID;
 
 public class RegisterService
 {
-    public RegisterResponse registerUser(RegisterRequest r)
-    {
+    public RegisterResponse registerUser(RegisterRequest r) throws DataAccessException {
         Database database = new Database();
+        Connection connection = database.getConnection();
 
-        try {
-            database.getConnection();
-        } catch (DataAccessException exception)
-        {
-
-        }
-
-        UserDAO userDAO = new UserDAO();
+        UserDAO userDAO = new UserDAO(connection);
 
         if (r.getUsername() == null || r.getPassword() == null || r.getEmail() == null)
         {

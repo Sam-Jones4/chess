@@ -30,7 +30,7 @@ public class ServiceTests
 
 
     @Test
-    void RegisterPassTest()
+    void RegisterPassTest() throws DataAccessException
     {
         RegisterService registerService = new RegisterService();
         RegisterRequest registerRequest = new RegisterRequest("samuser", "password", "sam@gmail.com");
@@ -43,7 +43,7 @@ public class ServiceTests
     }
 
     @Test
-    void RegisterFailTest()
+    void RegisterFailTest() throws DataAccessException
     {
         RegisterService registerService = new RegisterService();
         RegisterRequest registerRequest = new RegisterRequest("samuser", null, "sam@gmail.com");
