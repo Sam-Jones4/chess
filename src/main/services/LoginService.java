@@ -32,7 +32,7 @@ public class LoginService
             return new LoginResponse("Error: unauthorized");
         }
 
-        AuthDAO authDAO = new AuthDAO();
+        AuthDAO authDAO = new AuthDAO(connection);
 
         Authtoken authtoken = new Authtoken(UUID.randomUUID().toString(), loginRequest.getUsername());
 

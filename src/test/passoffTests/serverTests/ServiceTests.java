@@ -54,7 +54,7 @@ public class ServiceTests
     }
 
     @Test
-    void LogoutPassTest()
+    void LogoutPassTest() throws DataAccessException
     {
         AuthDAO authDAO = new AuthDAO();
         Authtoken authtoken = new Authtoken("thisismytoken", "samusername");
@@ -70,7 +70,7 @@ public class ServiceTests
     }
 
     @Test
-    void LogoutFailTest()
+    void LogoutFailTest() throws DataAccessException
     {
         AuthDAO authDAO = new AuthDAO();
         Authtoken authtoken = new Authtoken("thisismytoken", "samusername");
