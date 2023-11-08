@@ -36,7 +36,7 @@ public class Game
      * @param whiteUsername sets whiteUsername to white's username
      * @param blackUsername sets blackUsername to black's username
      * @param gameName sets gameName to the game name
-     * @param game sets game to teh game
+     * @param game sets game to the game
      */
     public Game(int gameID, String whiteUsername, String blackUsername, String gameName, ChessGameImpl game)
     {
