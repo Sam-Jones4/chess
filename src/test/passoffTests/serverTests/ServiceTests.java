@@ -1,10 +1,7 @@
 package passoffTests.serverTests;
 
 import chess.ChessGame;
-import dataAccess.AuthDAO;
-import dataAccess.DataAccessException;
-import dataAccess.GameDAO;
-import dataAccess.UserDAO;
+import dataAccess.*;
 import models.Authtoken;
 import models.Game;
 import models.User;
@@ -18,6 +15,7 @@ import requests.RegisterRequest;
 import responses.*;
 import services.*;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 
 public class ServiceTests
@@ -56,7 +54,10 @@ public class ServiceTests
     @Test
     void LogoutPassTest() throws DataAccessException
     {
-        AuthDAO authDAO = new AuthDAO();
+        Database database = new Database();
+        Connection connection = database.getConnection();
+
+        AuthDAO authDAO = new AuthDAO(connection);
         Authtoken authtoken = new Authtoken("thisismytoken", "samusername");
         authDAO.insertAuthtoken(authtoken);
 
@@ -72,7 +73,10 @@ public class ServiceTests
     @Test
     void LogoutFailTest() throws DataAccessException
     {
-        AuthDAO authDAO = new AuthDAO();
+        Database database = new Database();
+        Connection connection = database.getConnection();
+
+        AuthDAO authDAO = new AuthDAO(connection);
         Authtoken authtoken = new Authtoken("thisismytoken", "samusername");
         authDAO.insertAuthtoken(authtoken);
 
@@ -88,11 +92,14 @@ public class ServiceTests
     @Test
     void LoginPassTest() throws DataAccessException
     {
-        AuthDAO authDAO = new AuthDAO();
+        Database database = new Database();
+        Connection connection = database.getConnection();
+
+        AuthDAO authDAO = new AuthDAO(connection);
         Authtoken authtoken = new Authtoken("thisismytoken", "samsusername");
         authDAO.insertAuthtoken(authtoken);
 
-        UserDAO userDAO = new UserDAO();
+        UserDAO userDAO = new UserDAO(connection);
         userDAO.insertUser("samsusername", "samspassword", "email");
 
         LoginService loginService = new LoginService();
@@ -108,7 +115,10 @@ public class ServiceTests
     @Test
     void LoginFailTest() throws DataAccessException
     {
-        AuthDAO authDAO = new AuthDAO();
+        Database database = new Database();
+        Connection connection = database.getConnection();
+
+        AuthDAO authDAO = new AuthDAO(connection);
         Authtoken authtoken = new Authtoken("thisisNOTmytoken", "samsusername");
 
         LoginService loginService = new LoginService();
@@ -124,11 +134,14 @@ public class ServiceTests
     @Test
     void ListGamesPassTest() throws DataAccessException
     {
-        AuthDAO authDAO = new AuthDAO();
+        Database database = new Database();
+        Connection connection = database.getConnection();
+
+        AuthDAO authDAO = new AuthDAO(connection);
         Authtoken authtoken = new Authtoken("thisismytoken", "samsusername");
         authDAO.insertAuthtoken(authtoken);
 
-        GameDAO gameDAO = new GameDAO();
+        GameDAO gameDAO = new GameDAO(connection);
         Game game1 = new Game(1,"game1");
         Game game2 = new Game(2,"game2");
         gameDAO.insertGame(game1);
@@ -147,12 +160,16 @@ public class ServiceTests
     }
 
     @Test
-    void ListGamesFailTest() throws DataAccessException {
-        AuthDAO authDAO = new AuthDAO();
+    void ListGamesFailTest() throws DataAccessException
+    {
+        Database database = new Database();
+        Connection connection = database.getConnection();
+
+        AuthDAO authDAO = new AuthDAO(connection);
         Authtoken authtoken = new Authtoken("thisismytoken", "samusername");
         authDAO.insertAuthtoken(authtoken);
 
-        GameDAO gameDAO = new GameDAO();
+        GameDAO gameDAO = new GameDAO(connection);
         Game game1 = new Game(1,"game1");
         Game game2 = new Game(2,"game2");
         gameDAO.insertGame(game1);
@@ -167,12 +184,16 @@ public class ServiceTests
     }
 
     @Test
-    void JoinGamePassTest() throws DataAccessException {
-        GameDAO gameDAO = new GameDAO();
+    void JoinGamePassTest() throws DataAccessException
+    {
+        Database database = new Database();
+        Connection connection = database.getConnection();
+
+        GameDAO gameDAO = new GameDAO(connection);
         Game game1 = new Game(1,"game1");
         gameDAO.insertGame(game1);
 
-        AuthDAO authDAO = new AuthDAO();
+        AuthDAO authDAO = new AuthDAO(connection);
         Authtoken authtoken = new Authtoken("thisismytoken", "samusername");
         authDAO.insertAuthtoken(authtoken);
 
@@ -186,7 +207,8 @@ public class ServiceTests
     }
 
     @Test
-    void JoinGameFailTest() throws DataAccessException {
+    void JoinGameFailTest() throws DataAccessException
+    {
         JoinGameService joinGameService = new JoinGameService();
         JoinGameRequest joinGameRequest = new JoinGameRequest(ChessGame.TeamColor.WHITE, 0);
 
@@ -196,10 +218,14 @@ public class ServiceTests
     }
 
     @Test
-    void CreateGamePassTest() throws DataAccessException {
-        GameDAO gameDAO = new GameDAO();
+    void CreateGamePassTest() throws DataAccessException
+    {
+        Database database = new Database();
+        Connection connection = database.getConnection();
 
-        AuthDAO authDAO = new AuthDAO();
+        GameDAO gameDAO = new GameDAO(connection);
+
+        AuthDAO authDAO = new AuthDAO(connection);
         Authtoken authtoken = new Authtoken("thisismytoken", "samusername");
         authDAO.insertAuthtoken(authtoken);
 
@@ -214,7 +240,8 @@ public class ServiceTests
     }
 
     @Test
-    void CreateGameFailTest() throws DataAccessException {
+    void CreateGameFailTest() throws DataAccessException
+    {
         CreateGameService createGameService = new CreateGameService();
         CreateGameRequest createGameRequest = new CreateGameRequest(null);
 
@@ -224,8 +251,12 @@ public class ServiceTests
     }
 
     @Test
-    void ClearApplicationTest() throws DataAccessException {
-        UserDAO userDAO = new UserDAO();
+    void ClearApplicationTest() throws DataAccessException
+    {
+        Database database = new Database();
+        Connection connection = database.getConnection();
+
+        UserDAO userDAO = new UserDAO(connection);
         userDAO.insertUser("samuser", "password", "sam@gmail.com");
 
         ClearApplicationService clearApplicationService = new ClearApplicationService();
