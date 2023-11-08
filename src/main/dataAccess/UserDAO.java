@@ -19,6 +19,7 @@ public class UserDAO
     private static Map<String, User> userMap = new HashMap<>();
 
     /**
+     * Class constructor
      *
      * @param connection
      */
