@@ -74,6 +74,8 @@ public class AuthDAO
         try (var preparedStatement = connection.prepareStatement("DELETE FROM Auth WHERE authtoken=?"))
         {
             preparedStatement.setString(1, authtoken);
+
+            preparedStatement.executeUpdate();
         } catch (SQLException exception)
         {
             throw new DataAccessException(exception.getMessage());
