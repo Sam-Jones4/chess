@@ -39,6 +39,8 @@ public class CreateGameService
 
         gameDAO.insertGame(game);
 
+        database.closeConnection(connection);
+
         return new CreateGameResponse(game.getGameID());
     }
 }

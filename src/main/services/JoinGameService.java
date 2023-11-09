@@ -59,6 +59,8 @@ public class JoinGameService
             gameDAO.claimSpot(joinGameRequest.getGameID(), authtoken.getUsername(), joinGameRequest.getPlayerColor());
         }
 
+        database.closeConnection(connection);
+
         return new JoinGameResponse();
     }
 

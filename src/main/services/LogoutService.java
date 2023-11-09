@@ -23,6 +23,8 @@ public class LogoutService
 
         authDAO.removeAuthtoken(token);
 
+        database.closeConnection(connection);
+
         return new LogoutResponse();
     }
 }

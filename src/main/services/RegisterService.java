@@ -36,6 +36,8 @@ public class RegisterService
 
         authDAO.insertAuthtoken(authtoken);
 
+        database.closeConnection(connection);
+
         return new RegisterResponse(r.getUsername(),authtoken.getAuthToken());
     }
 

@@ -26,6 +26,8 @@ public class ListGamesService
 
         Game[] games = gameDAO.findAllGames();
 
+        database.closeConnection(connection);
+
         return new ListGamesResponse(games);
     }
 }

@@ -19,6 +19,8 @@ public class ClearApplicationService
         userDAO.clearUsers();
         gameDAO.clearGames();
 
+        database.closeConnection(connection);
+
         return new ClearApplicationResponse(null);
     }
 

@@ -38,6 +38,8 @@ public class LoginService
 
         authDAO.insertAuthtoken(authtoken);
 
+        database.closeConnection(connection);
+
         return new LoginResponse(loginRequest.getUsername(), authtoken.getAuthToken());
     }
 }
