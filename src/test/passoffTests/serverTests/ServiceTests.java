@@ -68,6 +68,8 @@ public class ServiceTests
 
         Assertions.assertNull(authDAO.findAuthtoken("thisismytoken"));
         Assertions.assertNull(response.getMessage());
+
+        database.closeConnection(connection);
     }
 
     @Test
@@ -87,6 +89,8 @@ public class ServiceTests
 
         Assertions.assertNotNull(authDAO.findAuthtoken("thisismytoken"));
         Assertions.assertEquals(response.getMessage(), "Error: unauthorized");
+
+        database.closeConnection(connection);
     }
 
     @Test
@@ -110,6 +114,8 @@ public class ServiceTests
         Assertions.assertEquals(loginRequest.getUsername(), authtoken.getUsername());
         Assertions.assertNotNull(authDAO.findAuthtoken("thisismytoken"));
         Assertions.assertNull(response.getMessage());
+
+        database.closeConnection(connection);
     }
 
     @Test
@@ -129,6 +135,8 @@ public class ServiceTests
         Assertions.assertEquals(loginRequest.getUsername(), authtoken.getUsername());
         Assertions.assertEquals(response.getAuthToken(), authDAO.findAuthtoken("thisismytoken"));
         Assertions.assertEquals(response.getMessage(), "Error: unauthorized");
+
+        database.closeConnection(connection);
     }
 
     @Test
@@ -157,6 +165,8 @@ public class ServiceTests
 
         Assertions.assertNotNull(authDAO.findAuthtoken("thisismytoken"));
         Assertions.assertEquals(listGamesResponse.getGames(), gameArray);
+
+        database.closeConnection(connection);
     }
 
     @Test
@@ -181,6 +191,8 @@ public class ServiceTests
 
         Assertions.assertNull(authDAO.findAuthtoken("thisisNOTmytoken"));
         Assertions.assertEquals(listGamesResponse.getMessage(), "Error: unauthorized");
+
+        database.closeConnection(connection);
     }
 
     @Test
@@ -204,6 +216,8 @@ public class ServiceTests
 
         Assertions.assertEquals("samusername", gameDAO.findGame(1).getWhiteUsername());
         Assertions.assertNull(response.getMessage());
+
+        database.closeConnection(connection);
     }
 
     @Test
@@ -237,6 +251,8 @@ public class ServiceTests
         Assertions.assertNotNull(response.getGameID());
         Assertions.assertEquals("myGame", gameDAO.findGame(response.getGameID()).getGameName());
 
+        database.closeConnection(connection);
+
     }
 
     @Test
@@ -265,6 +281,7 @@ public class ServiceTests
 
         Assertions.assertNull(userDAO.findUser("samuser"));
 
+        database.closeConnection(connection);
     }
 
 
