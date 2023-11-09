@@ -29,9 +29,15 @@ public class AuthDAO
     /**
      * Clears authToken data
      */
-    public void clearAuthtokens()
+    public void clearAuthtokens() throws DataAccessException
     {
-        authtokenMap.clear();
+        try (var preparedStatement = connection.prepareStatement("DELETE FROM Auth"))
+        {
+            preparedStatement.executeUpdate();
+        } catch (SQLException exception)
+        {
+            throw new DataAccessException(exception.getMessage());
+        }
     }
 
     /**

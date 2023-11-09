@@ -31,9 +31,15 @@ public class GameDAO
     /**
      * Clears game data
      */
-    public void clearGames()
+    public void clearGames() throws DataAccessException
     {
-        gameMap.clear();
+        try (var preparedStatement = connection.prepareStatement("DELETE FROM Game"))
+        {
+            preparedStatement.executeUpdate();
+        } catch (SQLException exception)
+        {
+            throw new DataAccessException(exception.getMessage());
+        }
     }
 
     /**

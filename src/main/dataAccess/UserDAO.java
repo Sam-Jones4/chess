@@ -34,9 +34,15 @@ public class UserDAO
     /**
      * Clears all users from the database
      */
-    public void clearUsers()
+    public void clearUsers() throws DataAccessException
     {
-        userMap.clear();
+        try (var preparedStatement = connection.prepareStatement("DELETE FROM User"))
+        {
+            preparedStatement.executeUpdate();
+        } catch (SQLException exception)
+        {
+            throw new DataAccessException(exception.getMessage());
+        }
     }
 
     /**
