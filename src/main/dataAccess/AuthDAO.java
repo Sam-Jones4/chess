@@ -69,8 +69,14 @@ public class AuthDAO
      *
      * @param authtoken authToken to remove
      */
-    public void removeAuthtoken(String authtoken)
+    public void removeAuthtoken(String authtoken) throws DataAccessException
     {
-        authtokenMap.remove(authtoken);
+        try (var preparedStatement = connection.prepareStatement("DELETE FROM Auth WHERE authtoken=?"))
+        {
+            preparedStatement.setString(1, authtoken);
+        } catch (SQLException exception)
+        {
+            throw new DataAccessException(exception.getMessage());
+        }
     }
 }
