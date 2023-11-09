@@ -1,6 +1,7 @@
 package dataAccess;
 
 import models.Authtoken;
+import models.User;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -15,11 +16,6 @@ import static java.sql.Statement.RETURN_GENERATED_KEYS;
 public class AuthDAO
 {
     private Connection connection;
-
-    /**
-     * Creates a map to hold authTokens
-     */
-    private static Map<String, Authtoken> authtokenMap = new HashMap<>();
 
     public AuthDAO(Connection connection)
     {
@@ -65,9 +61,25 @@ public class AuthDAO
      *
      * @param authtoken authToken to find
      */
-    public Authtoken findAuthtoken(String authtoken)
+    public Authtoken findAuthtoken(String authtoken) throws DataAccessException
     {
-        return authtokenMap.get(authtoken);
+        try (var preparedStatement = connection.prepareStatement("SELECT * FROM User WHERE username = ?"))
+        {
+            preparedStatement.setString(1, authtoken);
+            try (var resultSet = preparedStatement.executeQuery())
+            {
+                if (resultSet.next())
+                {
+                    var token = resultSet.getString("authtoken");
+                    var username = resultSet.getString("username");
+                    return new Authtoken(token, username);
+                }
+            }
+        } catch (SQLException exception)
+        {
+            throw new DataAccessException(exception.getMessage());
+        }
+        return null;
     }
 
     /**
