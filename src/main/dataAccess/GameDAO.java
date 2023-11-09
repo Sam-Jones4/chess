@@ -1,11 +1,15 @@
 package dataAccess;
 
 import chess.ChessGame;
+import com.google.gson.Gson;
 import models.Game;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+
+import static java.sql.Statement.RETURN_GENERATED_KEYS;
 
 /**
  * Data access object class to store and retrieve game data
@@ -37,9 +41,22 @@ public class GameDAO
      *
      * @param game game to insert
      */
-    public void insertGame(Game game)
+    public void insertGame(Game game) throws DataAccessException
     {
-        gameMap.put(game.getGameID(), game);
+        try (var preparedStatement = connection.prepareStatement("INSERT INTO Auth (gameID, whiteUsername, blackUsername, gameName, game) VALUES(?, ?, ?, ?, ?)"
+                , RETURN_GENERATED_KEYS))
+        {
+            preparedStatement.setInt(1, game.getGameID());
+            preparedStatement.setString(2, game.getWhiteUsername());
+            preparedStatement.setString(3, game.getBlackUsername());
+            preparedStatement.setString(4, game.getGameName());
+            preparedStatement.setString(5, new Gson().toJson(game.getGame()));
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException exception)
+        {
+            throw new DataAccessException(exception.getMessage());
+        }
     }
 
     /**

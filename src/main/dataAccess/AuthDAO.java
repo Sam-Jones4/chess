@@ -3,8 +3,11 @@ package dataAccess;
 import models.Authtoken;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+
+import static java.sql.Statement.RETURN_GENERATED_KEYS;
 
 /**
  * Data access object class to store and retrieve authToken data
@@ -36,9 +39,19 @@ public class AuthDAO
      *
      * @param authtoken given authToken to insert
      */
-    public void insertAuthtoken(Authtoken authtoken)
+    public void insertAuthtoken(Authtoken authtoken) throws DataAccessException
     {
-        authtokenMap.put(authtoken.getAuthToken(), authtoken);
+        try (var preparedStatement = connection.prepareStatement("INSERT INTO Auth (authtoken, username) VALUES(?, ?)"
+                , RETURN_GENERATED_KEYS))
+        {
+            preparedStatement.setString(1, authtoken.getAuthToken());
+            preparedStatement.setString(2, authtoken.getUsername());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException exception)
+        {
+            throw new DataAccessException(exception.getMessage());
+        }
     }
 
     /**
