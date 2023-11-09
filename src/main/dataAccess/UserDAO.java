@@ -1,7 +1,9 @@
 package dataAccess;
 
+import models.Game;
 import models.User;
 
+import javax.xml.crypto.Data;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -15,11 +17,6 @@ import static java.sql.Statement.RETURN_GENERATED_KEYS;
 public class UserDAO
 {
     private Connection connection;
-
-    /**
-     * Creates a map to store users
-     */
-    private static Map<String, User> userMap = new HashMap<>();
 
     /**
      * Class constructor
@@ -74,9 +71,26 @@ public class UserDAO
      *
      * @param username user to find
      */
-    public User findUser(String username)
+    public User findUser(String username) throws DataAccessException
     {
-        return userMap.get(username);
+        try (var preparedStatement = connection.prepareStatement("SELECT * FROM User WHERE username = ?"))
+        {
+            preparedStatement.setString(1, username);
+            try (var resultSet = preparedStatement.executeQuery())
+            {
+                if (resultSet.next())
+                {
+                    var name = resultSet.getString("username");
+                    var password = resultSet.getString("password");
+                    var email = resultSet.getString("email");
+                    return new User(name, password, email);
+                }
+            }
+        } catch (SQLException exception)
+        {
+            throw new DataAccessException(exception.getMessage());
+        }
+        return null;
     }
 
 
