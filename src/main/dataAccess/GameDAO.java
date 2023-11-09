@@ -6,6 +6,7 @@ import models.Game;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -70,17 +71,56 @@ public class GameDAO
      *
      * @param gameID game to find
      */
-    public Game findGame(int gameID)
+    public Game findGame(int gameID) throws DataAccessException
     {
-        return gameMap.get(gameID);
+        try (var preparedStatement = connection.prepareStatement("SELECT * FROM Game WHERE gameID = ?"))
+        {
+            preparedStatement.setInt(1, gameID);
+            try (var resultSet = preparedStatement.executeQuery())
+            {
+                if (resultSet.next())
+                {
+                    var id = resultSet.getInt("gameID");
+                    var whiteUsername = resultSet.getString("whiteUsername");
+                    var blackUsername = resultSet.getString("blackUsername");
+                    var gameName = resultSet.getString("gameName");
+                    var game = resultSet.getBlob("game");
+                    Game foundGame = new Game(id, whiteUsername, blackUsername, gameName, game);
+                    return foundGame;
+                }
+            }
+        } catch (SQLException exception)
+        {
+            throw new DataAccessException(exception.getMessage());
+        }
+        return null;
     }
 
     /**
      * Finds all the games
      */
-    public Game[] findAllGames()
-    {
-        return gameMap.values().toArray(new Game[0]);
+    public Game[] findAllGames() throws DataAccessException {
+        try (var preparedStatement = connection.prepareStatement("SELECT * FROM Game"))
+        {
+            try (var resultSet = preparedStatement.executeQuery())
+            {
+                ArrayList<Game> allGames = new ArrayList<>();
+                while (resultSet.next())
+                {
+                    var id = resultSet.getInt("gameID");
+                    var whiteUsername = resultSet.getString("whiteUsername");
+                    var blackUsername = resultSet.getString("blackUsername");
+                    var gameName = resultSet.getString("gameName");
+                    var game = resultSet.getBlob("game");
+                    Game foundGame = new Game(id, whiteUsername, blackUsername, gameName, game);
+                    allGames.add(foundGame);
+                }
+                return allGames.toArray(new Game[0]);
+            }
+        } catch (SQLException exception)
+        {
+            throw new DataAccessException(exception.getMessage());
+        }
     }
 
     /**
