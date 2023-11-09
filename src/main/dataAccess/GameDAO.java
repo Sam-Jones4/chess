@@ -18,12 +18,6 @@ import static java.sql.Statement.RETURN_GENERATED_KEYS;
 public class GameDAO
 {
     private Connection connection;
-
-    /**
-     * Creates a map to store games
-     */
-    private static Map<Integer, Game> gameMap = new HashMap<>();
-
     public GameDAO(Connection connection)
     {
         this.connection = connection;
@@ -128,15 +122,31 @@ public class GameDAO
      *
      * @param username username to be black or white
      */
-    public void claimSpot(int gameID, String username, ChessGame.TeamColor teamColor)
+    public void claimSpot(int gameID, String username, ChessGame.TeamColor teamColor) throws DataAccessException
     {
         if (teamColor.equals(ChessGame.TeamColor.WHITE))
         {
-            gameMap.get(gameID).setWhiteUsername(username);
+            try (var preparedStatement = connection.prepareStatement("UPDATE Game SET whiteUsername=? WHERE gameID=?")) {
+                preparedStatement.setString(1, username);
+                preparedStatement.setInt(2, gameID);
+
+                preparedStatement.executeUpdate();
+            } catch (SQLException exception)
+            {
+                throw new DataAccessException(exception.getMessage());
+            }
         }
         else
         {
-            gameMap.get(gameID).setBlackUsername(username);
+            try (var preparedStatement = connection.prepareStatement("UPDATE Game SET blackUsername=? WHERE gameID=?")) {
+                preparedStatement.setString(1, username);
+                preparedStatement.setInt(2, gameID);
+
+                preparedStatement.executeUpdate();
+            } catch (SQLException exception)
+            {
+                throw new DataAccessException(exception.getMessage());
+            }
         }
     }
 
