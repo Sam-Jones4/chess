@@ -1,7 +1,8 @@
 package dataAccess;
 
-import chess.ChessGame;
+import chess.*;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import models.Game;
 
 import java.sql.Connection;
@@ -78,8 +79,18 @@ public class GameDAO
                     var whiteUsername = resultSet.getString("whiteUsername");
                     var blackUsername = resultSet.getString("blackUsername");
                     var gameName = resultSet.getString("gameName");
-                    var game = resultSet.getBlob("game");
-                    Game foundGame = new Game(id, whiteUsername, blackUsername, gameName, game);
+                    var game = resultSet.getString("game");
+
+                    var builder = new GsonBuilder();
+                    builder.registerTypeAdapter(ChessGame.class, ChessGameImpl.getAdapter());
+                    builder.registerTypeAdapter(ChessPiece.class, ChessPieceImpl.getAdapter());
+                    builder.registerTypeAdapter(ChessBoard.class, ChessBoardImpl.getAdapter());
+
+                    Gson gson = builder.create();
+
+                    ChessGameImpl chessGame = gson.fromJson(game, ChessGameImpl.class);
+
+                    Game foundGame = new Game(id, whiteUsername, blackUsername, gameName, chessGame);
                     return foundGame;
                 }
             }
@@ -105,8 +116,18 @@ public class GameDAO
                     var whiteUsername = resultSet.getString("whiteUsername");
                     var blackUsername = resultSet.getString("blackUsername");
                     var gameName = resultSet.getString("gameName");
-                    var game = resultSet.getBlob("game");
-                    Game foundGame = new Game(id, whiteUsername, blackUsername, gameName, game);
+                    var game = resultSet.getString("game");
+
+                    var builder = new GsonBuilder();
+                    builder.registerTypeAdapter(ChessGame.class, ChessGameImpl.getAdapter());
+                    builder.registerTypeAdapter(ChessPiece.class, ChessPieceImpl.getAdapter());
+                    builder.registerTypeAdapter(ChessBoard.class, ChessBoardImpl.getAdapter());
+
+                    Gson gson = builder.create();
+
+                    ChessGameImpl chessGame = gson.fromJson(game, ChessGameImpl.class);
+
+                    Game foundGame = new Game(id, whiteUsername, blackUsername, gameName, chessGame);
                     allGames.add(foundGame);
                 }
                 return allGames.toArray(new Game[0]);
