@@ -45,7 +45,7 @@ public class GameDAO
      */
     public void insertGame(Game game) throws DataAccessException
     {
-        try (var preparedStatement = connection.prepareStatement("INSERT INTO Auth (gameID, whiteUsername, blackUsername, gameName, game) VALUES(?, ?, ?, ?, ?)"
+        try (var preparedStatement = connection.prepareStatement("INSERT INTO Game (id, whiteUsername, blackUsername, gameName, game) VALUES(?, ?, ?, ?, ?)"
                 , RETURN_GENERATED_KEYS))
         {
             preparedStatement.setInt(1, game.getGameID());
@@ -68,7 +68,7 @@ public class GameDAO
      */
     public Game findGame(int gameID) throws DataAccessException
     {
-        try (var preparedStatement = connection.prepareStatement("SELECT * FROM Game WHERE gameID = ?"))
+        try (var preparedStatement = connection.prepareStatement("SELECT * FROM Game WHERE id = ?"))
         {
             preparedStatement.setInt(1, gameID);
             try (var resultSet = preparedStatement.executeQuery())
@@ -147,7 +147,7 @@ public class GameDAO
     {
         if (teamColor.equals(ChessGame.TeamColor.WHITE))
         {
-            try (var preparedStatement = connection.prepareStatement("UPDATE Game SET whiteUsername=? WHERE gameID=?")) {
+            try (var preparedStatement = connection.prepareStatement("UPDATE Game SET whiteUsername=? WHERE id=?")) {
                 preparedStatement.setString(1, username);
                 preparedStatement.setInt(2, gameID);
 
@@ -159,7 +159,7 @@ public class GameDAO
         }
         else
         {
-            try (var preparedStatement = connection.prepareStatement("UPDATE Game SET blackUsername=? WHERE gameID=?")) {
+            try (var preparedStatement = connection.prepareStatement("UPDATE Game SET blackUsername=? WHERE id=?")) {
                 preparedStatement.setString(1, username);
                 preparedStatement.setInt(2, gameID);
 
