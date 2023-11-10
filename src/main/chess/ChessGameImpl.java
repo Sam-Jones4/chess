@@ -1,5 +1,9 @@
 package chess;
 
+import com.google.gson.*;
+import models.Game;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -216,4 +220,20 @@ public class ChessGameImpl implements ChessGame
     {
         return chessBoard;
     }
+
+    private static JsonDeserializer<ChessGame> gameAdapter = new JsonDeserializer<ChessGame>()
+    {
+        @Override
+        public ChessGame deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException
+        {
+            return new Gson().fromJson(jsonElement, ChessGameImpl.class);
+        }
+    };
+
+    public static JsonDeserializer<ChessGame> getAdapter()
+    {
+        return gameAdapter;
+    }
+
+
 }
