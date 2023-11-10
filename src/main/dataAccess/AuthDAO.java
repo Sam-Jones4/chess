@@ -43,11 +43,11 @@ public class AuthDAO
      */
     public void insertAuthtoken(Authtoken authtoken) throws DataAccessException
     {
-        try (var preparedStatement = connection.prepareStatement("INSERT INTO Auth (authtoken, username) VALUES(?, ?)"
+        try (var preparedStatement = connection.prepareStatement("INSERT INTO Auth (username, authtoken) VALUES(?, ?)"
                 , RETURN_GENERATED_KEYS))
         {
-            preparedStatement.setString(1, authtoken.getAuthToken());
-            preparedStatement.setString(2, authtoken.getUsername());
+            preparedStatement.setString(1, authtoken.getUsername());
+            preparedStatement.setString(2, authtoken.getAuthToken());
 
             preparedStatement.executeUpdate();
         } catch (SQLException exception)
@@ -63,7 +63,7 @@ public class AuthDAO
      */
     public Authtoken findAuthtoken(String authtoken) throws DataAccessException
     {
-        try (var preparedStatement = connection.prepareStatement("SELECT * FROM User WHERE username = ?"))
+        try (var preparedStatement = connection.prepareStatement("SELECT * FROM Auth WHERE authtoken = ?"))
         {
             preparedStatement.setString(1, authtoken);
             try (var resultSet = preparedStatement.executeQuery())

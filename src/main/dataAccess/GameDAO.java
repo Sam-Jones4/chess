@@ -8,8 +8,6 @@ import models.Game;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import static java.sql.Statement.RETURN_GENERATED_KEYS;
 
@@ -75,7 +73,7 @@ public class GameDAO
             {
                 if (resultSet.next())
                 {
-                    var id = resultSet.getInt("gameID");
+                    var id = resultSet.getInt("id");
                     var whiteUsername = resultSet.getString("whiteUsername");
                     var blackUsername = resultSet.getString("blackUsername");
                     var gameName = resultSet.getString("gameName");
@@ -112,7 +110,7 @@ public class GameDAO
                 ArrayList<Game> allGames = new ArrayList<>();
                 while (resultSet.next())
                 {
-                    var id = resultSet.getInt("gameID");
+                    var id = resultSet.getInt("id");
                     var whiteUsername = resultSet.getString("whiteUsername");
                     var blackUsername = resultSet.getString("blackUsername");
                     var gameName = resultSet.getString("gameName");
