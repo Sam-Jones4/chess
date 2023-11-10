@@ -62,7 +62,7 @@ public class UserTests
         UserDAO userDAO = new UserDAO(connection);
         userDAO.insertUser("samuser", "password", "sam@gmail.com");
 
-        Assertions.assertNull(userDAO.findUser("samsuser"));
+        Assertions.assertThrows(DataAccessException.class, () -> userDAO.insertUser("samuser", "password", "sam@gmail.com"));
 
         database.closeConnection(connection);
     }
@@ -74,7 +74,9 @@ public class UserTests
         Connection connection = database.getConnection();
 
         UserDAO userDAO = new UserDAO(connection);
+        userDAO.insertUser("samuser", "password", "sam@gmail.com");
 
+        Assertions.assertNotNull(userDAO.findUser("samuser"));
 
         database.closeConnection(connection);
     }
@@ -86,6 +88,9 @@ public class UserTests
         Connection connection = database.getConnection();
 
         UserDAO userDAO = new UserDAO(connection);
+        userDAO.insertUser("samuser", "password", "sam@gmail.com");
+
+        Assertions.assertNull(userDAO.findUser("notsamuser"));
 
         database.closeConnection(connection);
     }
