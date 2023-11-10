@@ -1,5 +1,9 @@
 package chess;
 
+import com.google.gson.*;
+
+import java.lang.reflect.Type;
+
 public class ChessBoardImpl implements ChessBoard
 {
     private ChessPiece[][] chessBoard = new ChessPiece[8][8];
@@ -49,5 +53,19 @@ public class ChessBoardImpl implements ChessBoard
         {
             chessBoard[6][i] = new Pawn(ChessGame.TeamColor.BLACK);
         }
+    }
+
+    private static JsonDeserializer<ChessBoard> boardAdapter = new JsonDeserializer<ChessBoard>()
+    {
+        @Override
+        public ChessBoard deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException
+        {
+            return new Gson().fromJson(jsonElement, ChessBoardImpl.class);
+        }
+    };
+
+    public static JsonDeserializer<ChessBoard> getAdapter()
+    {
+        return boardAdapter;
     }
 }
