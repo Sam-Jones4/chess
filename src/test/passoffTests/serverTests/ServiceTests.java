@@ -4,7 +4,6 @@ import chess.ChessGame;
 import dataAccess.*;
 import models.Authtoken;
 import models.Game;
-import models.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

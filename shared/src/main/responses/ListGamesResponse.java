@@ -1,9 +1,7 @@
 package responses;
 
-import chess.ChessGame;
 import models.Game;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

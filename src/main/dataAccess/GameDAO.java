@@ -102,7 +102,8 @@ public class GameDAO
     /**
      * Finds all the games
      */
-    public Game[] findAllGames() throws DataAccessException {
+    public Game[] findAllGames() throws DataAccessException
+    {
         try (var preparedStatement = connection.prepareStatement("SELECT * FROM Game"))
         {
             try (var resultSet = preparedStatement.executeQuery())

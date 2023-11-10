@@ -1,12 +1,9 @@
 package dataAccess;
 
 import models.Authtoken;
-import models.User;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 
 import static java.sql.Statement.RETURN_GENERATED_KEYS;
 

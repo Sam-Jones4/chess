@@ -22,7 +22,7 @@ public interface ChessPiece {
     /**
      * @return Which team this chess piece belongs to
      */
-    ChessGameImpl.TeamColor getTeamColor();
+    ChessGame.TeamColor getTeamColor();
 
     /**
      * @return which type of chess piece this piece is
