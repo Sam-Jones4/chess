@@ -33,9 +33,16 @@ public class ServerFacade
         }
     }
 
-    public LoginResponse login(LoginRequest request)
+    public LoginResponse login(LoginRequest request) throws URISyntaxException, IOException
     {
-
+        HttpURLConnection http = sendRequest(baseURL + "session", "POST", new Gson().toJson(request));
+        try (InputStream respBody = http.getInputStream()) {
+            InputStreamReader inputStreamReader = new InputStreamReader(respBody);
+            return new Gson().fromJson(inputStreamReader, LoginResponse.class);
+        } catch (Exception exception)
+        {
+            return null;
+        }
     }
 
     public LogoutResponse logout()
@@ -48,14 +55,28 @@ public class ServerFacade
 
     }
 
-    public CreateGameResponse createGame(CreateGameRequest request)
+    public CreateGameResponse createGame(CreateGameRequest request) throws URISyntaxException, IOException
     {
-
+        HttpURLConnection http = sendRequest(baseURL + "game", "POST", new Gson().toJson(request));
+        try (InputStream respBody = http.getInputStream()) {
+            InputStreamReader inputStreamReader = new InputStreamReader(respBody);
+            return new Gson().fromJson(inputStreamReader, CreateGameResponse.class);
+        } catch (Exception exception)
+        {
+            return null;
+        }
     }
 
-    public JoinGameResponse joinGame(JoinGameRequest request)
+    public JoinGameResponse joinGame(JoinGameRequest request) throws URISyntaxException, IOException
     {
-
+        HttpURLConnection http = sendRequest(baseURL + "path", "POST", new Gson().toJson(request));
+        try (InputStream respBody = http.getInputStream()) {
+            InputStreamReader inputStreamReader = new InputStreamReader(respBody);
+            return new Gson().fromJson(inputStreamReader, JoinGameResponse.class);
+        } catch (Exception exception)
+        {
+            return null;
+        }
     }
 
     private static HttpURLConnection sendRequest(String url, String method, String body) throws URISyntaxException, IOException {
