@@ -16,9 +16,16 @@ public class ServerFacade
 {
     String baseURL = "http://localhost:8080/";
 
-    public ClearApplicationResponse clearApplication()
+    public ClearApplicationResponse clearApplication() throws URISyntaxException, IOException
     {
-
+        HttpURLConnection http = sendRequest(baseURL + "db", "DELETE", null);
+        try (InputStream respBody = http.getInputStream()) {
+            InputStreamReader inputStreamReader = new InputStreamReader(respBody);
+            return new Gson().fromJson(inputStreamReader, ClearApplicationResponse.class);
+        } catch (Exception exception)
+        {
+            return null;
+        }
     }
 
     public RegisterResponse register(RegisterRequest request) throws IOException, URISyntaxException
@@ -45,14 +52,28 @@ public class ServerFacade
         }
     }
 
-    public LogoutResponse logout()
+    public LogoutResponse logout() throws URISyntaxException, IOException
     {
-
+        HttpURLConnection http = sendRequest(baseURL + "session", "DELETE", null);
+        try (InputStream respBody = http.getInputStream()) {
+            InputStreamReader inputStreamReader = new InputStreamReader(respBody);
+            return new Gson().fromJson(inputStreamReader, LogoutResponse.class);
+        } catch (Exception exception)
+        {
+            return null;
+        }
     }
 
-    public ListGamesResponse listGames()
+    public ListGamesResponse listGames() throws URISyntaxException, IOException
     {
-
+        HttpURLConnection http = sendRequest(baseURL + "game", "GET", null);
+        try (InputStream respBody = http.getInputStream()) {
+            InputStreamReader inputStreamReader = new InputStreamReader(respBody);
+            return new Gson().fromJson(inputStreamReader, ListGamesResponse.class);
+        } catch (Exception exception)
+        {
+            return null;
+        }
     }
 
     public CreateGameResponse createGame(CreateGameRequest request) throws URISyntaxException, IOException
@@ -69,7 +90,7 @@ public class ServerFacade
 
     public JoinGameResponse joinGame(JoinGameRequest request) throws URISyntaxException, IOException
     {
-        HttpURLConnection http = sendRequest(baseURL + "path", "POST", new Gson().toJson(request));
+        HttpURLConnection http = sendRequest(baseURL + "game", "PUT", new Gson().toJson(request));
         try (InputStream respBody = http.getInputStream()) {
             InputStreamReader inputStreamReader = new InputStreamReader(respBody);
             return new Gson().fromJson(inputStreamReader, JoinGameResponse.class);
