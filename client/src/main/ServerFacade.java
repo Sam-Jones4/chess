@@ -1,6 +1,9 @@
 import com.google.gson.Gson;
+import requests.CreateGameRequest;
+import requests.JoinGameRequest;
+import requests.LoginRequest;
 import requests.RegisterRequest;
-import responses.RegisterResponse;
+import responses.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,6 +15,11 @@ import java.net.URISyntaxException;
 public class ServerFacade
 {
     String baseURL = "http://localhost:8080/";
+
+    public ClearApplicationResponse clearApplication()
+    {
+
+    }
 
     public RegisterResponse register(RegisterRequest request) throws IOException, URISyntaxException
     {
@@ -25,6 +33,30 @@ public class ServerFacade
         }
     }
 
+    public LoginResponse login(LoginRequest request)
+    {
+
+    }
+
+    public LogoutResponse logout()
+    {
+
+    }
+
+    public ListGamesResponse listGames()
+    {
+
+    }
+
+    public CreateGameResponse createGame(CreateGameRequest request)
+    {
+
+    }
+
+    public JoinGameResponse joinGame(JoinGameRequest request)
+    {
+
+    }
 
     private static HttpURLConnection sendRequest(String url, String method, String body) throws URISyntaxException, IOException {
         URI uri = new URI(url);
