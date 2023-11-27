@@ -7,12 +7,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URI;
+import java.net.URISyntaxException;
 
 public class ServerFacade
 {
     String baseURL = "http://localhost:8080/";
 
-    public RegisterResponse register(RegisterRequest request) throws IOException
+    public RegisterResponse register(RegisterRequest request) throws IOException, URISyntaxException
     {
         HttpURLConnection http = sendRequest(baseURL + "user", "POST", new Gson().toJson(request));
         try (InputStream respBody = http.getInputStream()) {
