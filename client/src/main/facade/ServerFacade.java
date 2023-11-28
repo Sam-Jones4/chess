@@ -22,12 +22,25 @@ public class ServerFacade
     public ClearApplicationResponse clearApplication() throws URISyntaxException, IOException
     {
         HttpURLConnection http = sendRequest(baseURL + "db", "DELETE", null);
-        try (InputStream respBody = http.getInputStream()) {
-            InputStreamReader inputStreamReader = new InputStreamReader(respBody);
-            return new Gson().fromJson(inputStreamReader, ClearApplicationResponse.class);
-        } catch (Exception exception)
+        if (http.getResponseCode() == 200)
         {
-            return null;
+            try (InputStream respBody = http.getInputStream()) {
+                InputStreamReader inputStreamReader = new InputStreamReader(respBody);
+                return new Gson().fromJson(inputStreamReader, ClearApplicationResponse.class);
+            } catch (Exception exception)
+            {
+                return null;
+            }
+        }
+        else
+        {
+            try (InputStream respBody = http.getErrorStream()) {
+                InputStreamReader inputStreamReader = new InputStreamReader(respBody);
+                return new Gson().fromJson(inputStreamReader, ClearApplicationResponse.class);
+            } catch (Exception exception)
+            {
+                return null;
+            }
         }
     }
 
@@ -58,12 +71,25 @@ public class ServerFacade
     public LogoutResponse logout() throws URISyntaxException, IOException
     {
         HttpURLConnection http = sendRequest(baseURL + "session", "DELETE", null);
-        try (InputStream respBody = http.getInputStream()) {
-            InputStreamReader inputStreamReader = new InputStreamReader(respBody);
-            return new Gson().fromJson(inputStreamReader, LogoutResponse.class);
-        } catch (Exception exception)
+        if (http.getResponseCode() == 200)
         {
-            return null;
+            try (InputStream respBody = http.getInputStream()) {
+                InputStreamReader inputStreamReader = new InputStreamReader(respBody);
+                return new Gson().fromJson(inputStreamReader, LogoutResponse.class);
+            } catch (Exception exception)
+            {
+                return null;
+            }
+        }
+        else
+        {
+            try (InputStream respBody = http.getErrorStream()) {
+                InputStreamReader inputStreamReader = new InputStreamReader(respBody);
+                return new Gson().fromJson(inputStreamReader, LogoutResponse.class);
+            } catch (Exception exception)
+            {
+                return null;
+            }
         }
     }
 
@@ -95,25 +121,12 @@ public class ServerFacade
     public CreateGameResponse createGame(CreateGameRequest request) throws URISyntaxException, IOException
     {
         HttpURLConnection http = sendRequest(baseURL + "game", "POST", new Gson().toJson(request));
-        if (http.getResponseCode() == 200)
+        try (InputStream respBody = http.getInputStream()) {
+            InputStreamReader inputStreamReader = new InputStreamReader(respBody);
+            return new Gson().fromJson(inputStreamReader, CreateGameResponse.class);
+        } catch (Exception exception)
         {
-            try (InputStream respBody = http.getInputStream()) {
-                InputStreamReader inputStreamReader = new InputStreamReader(respBody);
-                return new Gson().fromJson(inputStreamReader, CreateGameResponse.class);
-            } catch (Exception exception)
-            {
-                return null;
-            }
-        }
-        else
-        {
-            try (InputStream respBody = http.getErrorStream()) {
-                InputStreamReader inputStreamReader = new InputStreamReader(respBody);
-                return new Gson().fromJson(inputStreamReader, CreateGameResponse.class);
-            } catch (Exception exception)
-            {
-                return null;
-            }
+            return null;
         }
     }
 
@@ -147,24 +160,6 @@ public class ServerFacade
                 outputStream.write(body.getBytes());
             }
         }
-    }
-
-    private static Object receiveResponse(HttpURLConnection http) throws IOException {
-        var statusCode = http.getResponseCode();
-        var statusMessage = http.getResponseMessage();
-
-        Object responseBody = readResponseBody(http);
-
-        return responseBody;
-    }
-
-    private static Object readResponseBody(HttpURLConnection http) throws IOException {
-        Object responseBody = "";
-        try (InputStream respBody = http.getInputStream()) {
-            InputStreamReader inputStreamReader = new InputStreamReader(respBody);
-            responseBody = new Gson().fromJson(inputStreamReader, RegisterResponse.class);
-        }
-        return responseBody;
     }
 }
 
