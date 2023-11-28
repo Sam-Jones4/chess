@@ -1,3 +1,5 @@
+package facade;
+
 import com.google.gson.Gson;
 import requests.CreateGameRequest;
 import requests.JoinGameRequest;
@@ -14,6 +16,7 @@ import java.net.URISyntaxException;
 
 public class ServerFacade
 {
+    public static String authToken = null;
     String baseURL = "http://localhost:8080/";
 
     public ClearApplicationResponse clearApplication() throws URISyntaxException, IOException
@@ -67,24 +70,50 @@ public class ServerFacade
     public ListGamesResponse listGames() throws URISyntaxException, IOException
     {
         HttpURLConnection http = sendRequest(baseURL + "game", "GET", null);
-        try (InputStream respBody = http.getInputStream()) {
-            InputStreamReader inputStreamReader = new InputStreamReader(respBody);
-            return new Gson().fromJson(inputStreamReader, ListGamesResponse.class);
-        } catch (Exception exception)
+        if (http.getResponseCode() == 200)
         {
-            return null;
+            try (InputStream respBody = http.getInputStream()) {
+                InputStreamReader inputStreamReader = new InputStreamReader(respBody);
+                return new Gson().fromJson(inputStreamReader, ListGamesResponse.class);
+            } catch (Exception exception)
+            {
+                return null;
+            }
+        }
+        else
+        {
+            try (InputStream respBody = http.getErrorStream()) {
+                InputStreamReader inputStreamReader = new InputStreamReader(respBody);
+                return new Gson().fromJson(inputStreamReader, ListGamesResponse.class);
+            } catch (Exception exception)
+            {
+                return null;
+            }
         }
     }
 
     public CreateGameResponse createGame(CreateGameRequest request) throws URISyntaxException, IOException
     {
         HttpURLConnection http = sendRequest(baseURL + "game", "POST", new Gson().toJson(request));
-        try (InputStream respBody = http.getInputStream()) {
-            InputStreamReader inputStreamReader = new InputStreamReader(respBody);
-            return new Gson().fromJson(inputStreamReader, CreateGameResponse.class);
-        } catch (Exception exception)
+        if (http.getResponseCode() == 200)
         {
-            return null;
+            try (InputStream respBody = http.getInputStream()) {
+                InputStreamReader inputStreamReader = new InputStreamReader(respBody);
+                return new Gson().fromJson(inputStreamReader, CreateGameResponse.class);
+            } catch (Exception exception)
+            {
+                return null;
+            }
+        }
+        else
+        {
+            try (InputStream respBody = http.getErrorStream()) {
+                InputStreamReader inputStreamReader = new InputStreamReader(respBody);
+                return new Gson().fromJson(inputStreamReader, CreateGameResponse.class);
+            } catch (Exception exception)
+            {
+                return null;
+            }
         }
     }
 
@@ -100,7 +129,8 @@ public class ServerFacade
         }
     }
 
-    private static HttpURLConnection sendRequest(String url, String method, String body) throws URISyntaxException, IOException {
+    private static HttpURLConnection sendRequest(String url, String method, String body) throws URISyntaxException, IOException
+    {
         URI uri = new URI(url);
         HttpURLConnection http = (HttpURLConnection) uri.toURL().openConnection();
         http.setRequestMethod(method);
@@ -111,7 +141,7 @@ public class ServerFacade
     }
 
     private static void writeRequestBody(String body, HttpURLConnection http) throws IOException {
-        if (!body.isEmpty()) {
+        if (body != null && !body.isEmpty()) {
             http.setDoOutput(true);
             try (var outputStream = http.getOutputStream()) {
                 outputStream.write(body.getBytes());
