@@ -17,9 +17,9 @@ import java.net.URISyntaxException;
 public class ServerFacade
 {
     public static String authToken = null;
-    String baseURL = "http://localhost:8080/";
+    static String baseURL = "http://localhost:8080/";
 
-    public ClearApplicationResponse clearApplication() throws URISyntaxException, IOException
+    public static ClearApplicationResponse clearApplication() throws URISyntaxException, IOException
     {
         HttpURLConnection http = sendRequest(baseURL + "db", "DELETE", null);
         if (http.getResponseCode() == 200)
@@ -44,7 +44,7 @@ public class ServerFacade
         }
     }
 
-    public RegisterResponse register(RegisterRequest request) throws IOException, URISyntaxException
+    public static RegisterResponse register(RegisterRequest request) throws IOException, URISyntaxException
     {
         HttpURLConnection http = sendRequest(baseURL + "user", "POST", new Gson().toJson(request));
         try (InputStream respBody = http.getInputStream()) {
@@ -56,7 +56,7 @@ public class ServerFacade
         }
     }
 
-    public LoginResponse login(LoginRequest request) throws URISyntaxException, IOException
+    public static LoginResponse login(LoginRequest request) throws URISyntaxException, IOException
     {
         HttpURLConnection http = sendRequest(baseURL + "session", "POST", new Gson().toJson(request));
         try (InputStream respBody = http.getInputStream()) {
@@ -68,7 +68,7 @@ public class ServerFacade
         }
     }
 
-    public LogoutResponse logout() throws URISyntaxException, IOException
+    public static LogoutResponse logout() throws URISyntaxException, IOException
     {
         HttpURLConnection http = sendRequest(baseURL + "session", "DELETE", null);
         if (http.getResponseCode() == 200)
@@ -93,7 +93,7 @@ public class ServerFacade
         }
     }
 
-    public ListGamesResponse listGames() throws URISyntaxException, IOException
+    public static ListGamesResponse listGames() throws URISyntaxException, IOException
     {
         HttpURLConnection http = sendRequest(baseURL + "game", "GET", null);
         if (http.getResponseCode() == 200)
@@ -118,7 +118,7 @@ public class ServerFacade
         }
     }
 
-    public CreateGameResponse createGame(CreateGameRequest request) throws URISyntaxException, IOException
+    public static CreateGameResponse createGame(CreateGameRequest request) throws URISyntaxException, IOException
     {
         HttpURLConnection http = sendRequest(baseURL + "game", "POST", new Gson().toJson(request));
         try (InputStream respBody = http.getInputStream()) {
@@ -130,7 +130,7 @@ public class ServerFacade
         }
     }
 
-    public JoinGameResponse joinGame(JoinGameRequest request) throws URISyntaxException, IOException
+    public static JoinGameResponse joinGame(JoinGameRequest request) throws URISyntaxException, IOException
     {
         HttpURLConnection http = sendRequest(baseURL + "game", "PUT", new Gson().toJson(request));
         try (InputStream respBody = http.getInputStream()) {
