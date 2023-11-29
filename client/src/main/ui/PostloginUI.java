@@ -4,6 +4,7 @@ import facade.ServerFacade;
 import requests.CreateGameRequest;
 import responses.CreateGameResponse;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public class PostloginUI
@@ -15,7 +16,7 @@ public class PostloginUI
         while (true)
         {
             String command = scanner.next();
-            if (command == "create")
+            if (Objects.equals(command, "create"))
             {
                 System.out.println("Game name:");
                 String gameName = scanner.next();
@@ -42,27 +43,27 @@ public class PostloginUI
                 }
 
             }
-            else if (command == "list")
+            else if (Objects.equals(command, "list"))
             {
 
             }
-            else if (command == "join")
+            else if (Objects.equals(command, "join"))
             {
 
             }
-            else if (command == "observe")
+            else if (Objects.equals(command, "observe"))
             {
 
             }
-            else if (command == "logout")
+            else if (Objects.equals(command, "logout"))
             {
 
             }
-            else if (command == "quit")
+            else if (Objects.equals(command, "quit"))
             {
 
             }
-            else if (command == "help")
+            else if (Objects.equals(command, "help"))
             {
 
             }

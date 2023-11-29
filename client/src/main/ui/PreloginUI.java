@@ -6,6 +6,7 @@ import requests.RegisterRequest;
 import responses.LoginResponse;
 import responses.RegisterResponse;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public class PreloginUI {
@@ -14,7 +15,7 @@ public class PreloginUI {
 
         while (true) {
             String command = scanner.next();
-            if (command == "register")
+            if (Objects.equals(command, "register"))
             {
                 System.out.println("Username:");
                 String username = scanner.next();
@@ -41,7 +42,7 @@ public class PreloginUI {
                     System.out.println(exception.getMessage());
                 }
             }
-            else if (command == "login")
+            else if (Objects.equals(command, "login"))
             {
                 System.out.println("Username:");
                 String username = scanner.next();
@@ -65,11 +66,11 @@ public class PreloginUI {
                     System.out.println(exception.getMessage());
                 }
             }
-            else if (command == "quit")
+            else if (Objects.equals(command, "quit"))
             {
 
             }
-            else if (command == "help")
+            else if (Objects.equals(command, "help"))
             {
 
             }
