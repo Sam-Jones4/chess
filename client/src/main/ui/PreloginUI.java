@@ -58,7 +58,8 @@ public class PreloginUI {
                     assert result != null;
                     if (result.getMessage() != null) {
                         System.out.println(result.getMessage());
-                    } else {
+                    } else
+                    {
                         PostloginUI.EnterCommand();
                     }
 
@@ -68,11 +69,16 @@ public class PreloginUI {
             }
             else if (Objects.equals(command, "quit"))
             {
-
+                return;
             }
             else if (Objects.equals(command, "help"))
             {
-
+                System.out.print(EscapeSequences.SET_TEXT_COLOR_BLUE);
+                System.out.println("register - to create an account");
+                System.out.println("login - to play chess");
+                System.out.println("quit - playing chess");
+                System.out.println("help - with possible commands");
+                System.out.print(EscapeSequences.RESET_TEXT_COLOR);
             }
         }
     }
