@@ -1,6 +1,7 @@
 package ui;
 
 import chess.ChessGame;
+import chess.ChessGameImpl;
 import facade.ServerFacade;
 import requests.CreateGameRequest;
 import requests.JoinGameRequest;
@@ -90,7 +91,9 @@ public class PostloginUI
                     }
                     else
                     {
-                        GameUI.EnterCommand();
+                        ChessGameImpl game = new ChessGameImpl();
+                        game.getBoard().resetBoard();
+                        GameUI.PrintWhiteBoard(game);
                     }
                 } catch (Exception exception)
                 {
@@ -115,7 +118,9 @@ public class PostloginUI
                     }
                     else
                     {
-                        GameUI.EnterCommand();
+                        ChessGameImpl game = new ChessGameImpl();
+                        game.getBoard().resetBoard();
+                        GameUI.PrintWhiteBoard(game);
                     }
                 } catch (Exception exception)
                 {
