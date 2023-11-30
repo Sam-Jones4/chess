@@ -1,5 +1,6 @@
 package ui;
 
+import chess.ChessBoardImpl;
 import chess.ChessGame;
 import chess.ChessGameImpl;
 import facade.ServerFacade;
@@ -61,6 +62,10 @@ public class PostloginUI
                     }
                     else
                     {
+                        for (int i = 1; i < result.getGames().size(); i++)
+                        {
+                            System.out.println(i + ". " + result.getGames().get(i).getGameName());
+                        }
                         PostloginUI.EnterCommand();
                     }
 
@@ -92,8 +97,10 @@ public class PostloginUI
                     else
                     {
                         ChessGameImpl game = new ChessGameImpl();
+                        game.setBoard(new ChessBoardImpl());
                         game.getBoard().resetBoard();
                         GameUI.PrintWhiteBoard(game);
+                        GameUI.PrintBlackBoard(game);
                     }
                 } catch (Exception exception)
                 {
@@ -119,8 +126,10 @@ public class PostloginUI
                     else
                     {
                         ChessGameImpl game = new ChessGameImpl();
+                        game.setBoard(new ChessBoardImpl());
                         game.getBoard().resetBoard();
                         GameUI.PrintWhiteBoard(game);
+                        GameUI.PrintBlackBoard(game);
                     }
                 } catch (Exception exception)
                 {

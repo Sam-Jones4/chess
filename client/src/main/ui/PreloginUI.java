@@ -31,6 +31,7 @@ public class PreloginUI {
                 try {
                     RegisterResponse result = ServerFacade.register(request);
 
+                    ServerFacade.authToken = result.getAuthToken();
                     assert result != null;
                     if (result.getMessage() != null) {
                         System.out.println(result.getMessage());
@@ -55,6 +56,7 @@ public class PreloginUI {
                 try {
                     LoginResponse result = ServerFacade.login(request);
 
+                    ServerFacade.authToken = result.getAuthToken();
                     assert result != null;
                     if (result.getMessage() != null) {
                         System.out.println(result.getMessage());

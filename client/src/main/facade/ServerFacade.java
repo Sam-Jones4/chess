@@ -47,24 +47,50 @@ public class ServerFacade
     public static RegisterResponse register(RegisterRequest request) throws IOException, URISyntaxException
     {
         HttpURLConnection http = sendRequest(baseURL + "user", "POST", new Gson().toJson(request));
-        try (InputStream respBody = http.getInputStream()) {
-            InputStreamReader inputStreamReader = new InputStreamReader(respBody);
-            return new Gson().fromJson(inputStreamReader, RegisterResponse.class);
-        } catch (Exception exception)
+        if (http.getResponseCode() == 200)
         {
-            return null;
+            try (InputStream respBody = http.getInputStream()) {
+                InputStreamReader inputStreamReader = new InputStreamReader(respBody);
+                return new Gson().fromJson(inputStreamReader, RegisterResponse.class);
+            } catch (Exception exception)
+            {
+                return null;
+            }
+        }
+        else
+        {
+            try (InputStream respBody = http.getErrorStream()) {
+                InputStreamReader inputStreamReader = new InputStreamReader(respBody);
+                return new Gson().fromJson(inputStreamReader, RegisterResponse.class);
+            } catch (Exception exception)
+            {
+                return null;
+            }
         }
     }
 
     public static LoginResponse login(LoginRequest request) throws URISyntaxException, IOException
     {
         HttpURLConnection http = sendRequest(baseURL + "session", "POST", new Gson().toJson(request));
-        try (InputStream respBody = http.getInputStream()) {
-            InputStreamReader inputStreamReader = new InputStreamReader(respBody);
-            return new Gson().fromJson(inputStreamReader, LoginResponse.class);
-        } catch (Exception exception)
+        if (http.getResponseCode() == 200)
         {
-            return null;
+            try (InputStream respBody = http.getInputStream()) {
+                InputStreamReader inputStreamReader = new InputStreamReader(respBody);
+                return new Gson().fromJson(inputStreamReader, LoginResponse.class);
+            } catch (Exception exception)
+            {
+                return null;
+            }
+        }
+        else
+        {
+            try (InputStream respBody = http.getErrorStream()) {
+                InputStreamReader inputStreamReader = new InputStreamReader(respBody);
+                return new Gson().fromJson(inputStreamReader, LoginResponse.class);
+            } catch (Exception exception)
+            {
+                return null;
+            }
         }
     }
 
@@ -147,6 +173,7 @@ public class ServerFacade
         URI uri = new URI(url);
         HttpURLConnection http = (HttpURLConnection) uri.toURL().openConnection();
         http.setRequestMethod(method);
+        http.setRequestProperty("Authorization", authToken);
         writeRequestBody(body, http);
         http.connect();
         System.out.printf("= Request =========\n[%s] %s\n\n%s\n\n", method, url, body);
