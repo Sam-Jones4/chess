@@ -65,6 +65,9 @@ public class PostloginUI
                         for (int i = 1; i < result.getGames().size(); i++)
                         {
                             System.out.println(i + ". " + result.getGames().get(i).getGameName());
+                            System.out.println("  GameID: " + result.getGames().get(i).getGameID());
+                            System.out.println("  WHITE:" + result.getGames().get(i).getWhiteUsername());
+                            System.out.println("  BLACK:" + result.getGames().get(i).getBlackUsername());
                         }
                         PostloginUI.EnterCommand();
                     }
@@ -81,7 +84,6 @@ public class PostloginUI
 
                 System.out.println("Team Color [WHITE|BLACK|<empty>]: ");
                 ChessGame.TeamColor teamColor = ChessGame.TeamColor.valueOf(scanner.next());
-
 
                 JoinGameRequest request = new JoinGameRequest(teamColor, gameID);
 
@@ -100,6 +102,7 @@ public class PostloginUI
                         game.setBoard(new ChessBoardImpl());
                         game.getBoard().resetBoard();
                         GameUI.PrintWhiteBoard(game);
+                        System.out.println(EscapeSequences.RESET_BG_COLOR);
                         GameUI.PrintBlackBoard(game);
                     }
                 } catch (Exception exception)
@@ -129,6 +132,7 @@ public class PostloginUI
                         game.setBoard(new ChessBoardImpl());
                         game.getBoard().resetBoard();
                         GameUI.PrintWhiteBoard(game);
+                        System.out.println(EscapeSequences.RESET_BG_COLOR);
                         GameUI.PrintBlackBoard(game);
                     }
                 } catch (Exception exception)

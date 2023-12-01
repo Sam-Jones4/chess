@@ -11,6 +11,7 @@ import java.util.Scanner;
 
 public class PreloginUI {
     public static void EnterCommand() {
+        System.out.println(EscapeSequences.BLACK_QUEEN + "Welcome to 240 chess. Type help to get started" + EscapeSequences.BLACK_QUEEN);
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
