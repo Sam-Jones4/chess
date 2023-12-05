@@ -2,7 +2,52 @@ package ui;
 
 import chess.*;
 
-public class GameUI {
+import java.util.Objects;
+import java.util.Scanner;
+
+public class GameUI
+{
+    public static void EnterCommand()
+    {
+        Scanner scanner = new Scanner(System.in);
+
+        while(true)
+        {
+            String command = scanner.next();
+            if (Objects.equals(command, "help"))
+            {
+                System.out.print(EscapeSequences.SET_TEXT_COLOR_BLUE);
+                System.out.println("redraw - redraws the chess board");
+                System.out.println("leave - leave game");
+                System.out.println("make move - input move you want to make");
+                System.out.println("resign - forfeit the game");
+                System.out.println("highlight - highlights the user's legal moves");
+                System.out.println("help - with possible commands");
+                System.out.print(EscapeSequences.RESET_TEXT_COLOR);
+            }
+            else if (command == "redraw")
+            {
+
+            }
+            else if (command == "leave")
+            {
+
+            }
+            else if (command == "make move")
+            {
+
+            }
+            else if (command == "resign")
+            {
+
+            }
+            else if (command == "highlight")
+            {
+
+            }
+        }
+    }
+
     public static void PrintWhiteBoard(ChessGameImpl game)
     {
         ChessBoard board = game.getBoard();
