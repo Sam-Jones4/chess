@@ -31,7 +31,7 @@ public class GameUI
             }
             else if (command == "leave")
             {
-
+                PostloginUI.EnterCommand();
             }
             else if (command == "make move")
             {
